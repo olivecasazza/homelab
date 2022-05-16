@@ -29,6 +29,7 @@ main() {
 
     if [[ "${verify}" == 1 ]]; then
         verify_ansible_hosts
+        verify_discord
         verify_metallb
         verify_kubevip
         verify_addressing
@@ -56,11 +57,14 @@ main() {
             > "${PROJECT_DIR}/cluster/apps/networking/cloudflare-ddns/secret.sops.yaml"
         envsubst < "${PROJECT_DIR}/tmpl/cluster/external-dns-secret.sops.yaml" \
             > "${PROJECT_DIR}/cluster/apps/networking/external-dns/secret.sops.yaml"
+        envsubst < "${PROJECT_DIR}/tmpl/cluster/discord-secret.sops.yaml" \
+            > "${PROJECT_DIR}/cluster/apps/monitoring/prometheus/discord-secret.sops.yaml"
         # encrypt cluster secrets
         sops --encrypt --in-place "${PROJECT_DIR}/cluster/base/cluster-secrets.sops.yaml"
         sops --encrypt --in-place "${PROJECT_DIR}/cluster/core/cert-manager/secret.sops.yaml"
         sops --encrypt --in-place "${PROJECT_DIR}/cluster/apps/networking/cloudflare-ddns/secret.sops.yaml"
         sops --encrypt --in-place "${PROJECT_DIR}/cluster/apps/networking/external-dns/secret.sops.yaml"
+        sops --encrypt --in-place "${PROJECT_DIR}/cluster/apps/monitoring/prometheus/discord-secret.sops.yaml"
         # generate terraform secrets
         envsubst < "${PROJECT_DIR}/tmpl/terraform/secret.sops.yaml" \
             > "${PROJECT_DIR}/provision/terraform/cloudflare/secret.sops.yaml"
@@ -246,6 +250,10 @@ verify_binaries() {
 verify_kubevip() {
     _has_envar "BOOTSTRAP_KUBE_VIP_ADDR"
     _has_valid_ip "${BOOTSTRAP_KUBE_VIP_ADDR}" "BOOTSTRAP_KUBE_VIP_ADDR"
+}
+
+verify_discord() {
+    _has_envar "BOOTSTRAP_DISCORD_WEBHOOK_URL"
 }
 
 verify_metallb() {
