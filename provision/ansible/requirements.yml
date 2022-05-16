@@ -11,3 +11,5 @@ collections:
 roles:
   - src: xanmanning.k3s
     version: v3.1.2
+  - src: nvidia.nvidia_driver
+    version: v2.2.1
