@@ -65,23 +65,25 @@ spec:
             options:
               path: /var/lib/grafana/dashboards/default
 
-    # datasources:
-    #   datasources.yaml:
-    #     apiVersion: 1
-    #     # list of datasources that should be deleted from the database
-    #     deleteDatasources:
-    #       - name: Loki
-    #         orgId: 1
-    #     datasources:
-    #       - name: Prometheus
-    #         type: prometheus
-    #         access: proxy
-    #         url: http://prometheus.monitoring:9090/
-    #         isDefault: true
-    #       - name: Loki
-    #         type: loki
-    #         access: proxy
-    #         url: http://loki-gateway:80
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        # list of datasources that should be deleted from the database
+        deleteDatasources:
+          - name: Loki
+            orgId: 1
+        datasources:
+          - name: Prometheus
+            type: prometheus
+            access: proxy
+            url: http://prometheus.monitoring:9090/
+            orgId: 1
+            isDefault: true
+          - name: Loki
+            type: loki
+            access: proxy
+            url: http://loki-gateway:80
+            ordId: 1
 
     dashboards:
       default:
