@@ -82,6 +82,8 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
+    grafana:
+      enabled: false
     prometheusOperator:
       prometheusConfigReloader:
         resources:
