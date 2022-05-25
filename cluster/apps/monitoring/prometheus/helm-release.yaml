@@ -83,7 +83,33 @@ spec:
                 requests:
                   storage: 1Gi
     grafana:
-      enabled: false
+      enabled: true
+      ingress:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns/is-public: "true"
+          hajimari.io/enable: "true"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-internal-only@kubernetescrd"
+      deploymentStrategy:
+        type: Recreate
+      persistence:
+        enabled: true
+      sidecar:
+        dashboards:
+          enabled: true
+          label: grafana_dashboard
+          searchNamespace: ALL
+        datasources:
+          enabled: true
+          label: grafana_datasource
+          searchNamespace: ALL
+      env:
+        GF_EXPLORE_ENABLED: true
+      admin:
+        existingSecret: "grafana-secrets"
     prometheusOperator:
       prometheusConfigReloader:
         resources:
