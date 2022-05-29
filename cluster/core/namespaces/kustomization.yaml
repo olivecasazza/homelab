@@ -8,4 +8,5 @@ resources:
   - system-upgrade.yaml
   - monitoring.yaml
   - democratic-csi.yaml
+  - media.yaml
   # - rook-ceph.yaml
