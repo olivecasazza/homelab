@@ -84,6 +84,12 @@ spec:
                   storage: 1Gi
     grafana:
       enabled: false
+      forceDeployDashboards: true
+      sidecar:
+        dashboards:
+          multicluster:
+            etcd:
+              enabled: true
     prometheusOperator:
       prometheusConfigReloader:
         resources:
