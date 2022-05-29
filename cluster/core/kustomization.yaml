@@ -6,4 +6,5 @@ resources:
   - cert-manager
   - kube-system
   - metallb-system
+  - democratic-csi
   # - rook-ceph

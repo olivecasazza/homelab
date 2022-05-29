@@ -7,4 +7,5 @@ resources:
   - networking.yaml
   - system-upgrade.yaml
   - monitoring.yaml
+  - democratic-csi.yaml
   # - rook-ceph.yaml
