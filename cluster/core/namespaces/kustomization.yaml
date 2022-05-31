@@ -9,4 +9,5 @@ resources:
   - monitoring.yaml
   - democratic-csi.yaml
   - media.yaml
+  - vpn.yaml
   # - rook-ceph.yaml
