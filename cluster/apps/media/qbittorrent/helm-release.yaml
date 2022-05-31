@@ -48,7 +48,7 @@ spec:
         enabled: true
         type: nfs
         server: "192.168.0.12"
-        path: /k3s/nfs
+        path: /mnt/hdd/k3s/nfs/media
         mountPath: /media
     podAnnotations:
       setGateway: "true"
