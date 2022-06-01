@@ -48,8 +48,11 @@ spec:
               - "qbittorrent.${SECRET_DOMAIN}"
 
     livenessProbe:
+      enabled: false
     readinessProbe:
+      enabled: false
     startupProbe:
+      enabled: false
 
     persistence:
       config:
