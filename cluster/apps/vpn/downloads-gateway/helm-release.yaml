@@ -40,8 +40,8 @@ spec:
       VXLAN_IP_NETWORK: 172.16.1
       VPN_BLOCK_OTHER_TRAFFIC: false
       VPN_TRAFFIC_PORT: 1337
-      NOT_ROUTED_TO_GATEWAY_CIDRS: "172.16.0.0/12 ${NETWORK_K8S_CLUSTER_CIDR} ${NETWORK_K8S_SERVICE_CIDR} 192.168.0.1/24"
-      VPN_LOCAL_CIDRS: "172.16.0.0/12 ${NETWORK_K8S_CLUSTER_CIDR} ${NETWORK_K8S_SERVICE_CIDR} 192.168.0.1/24"
+      NOT_ROUTED_TO_GATEWAY_CIDRS: "${NETWORK_K8S_CLUSTER_CIDR} 192.168.0.1/24"
+      VPN_LOCAL_CIDRS: "${NETWORK_K8S_CLUSTER_CIDR} 192.168.0.1/24"
 
     webhook:
       image:
@@ -86,5 +86,3 @@ spec:
                 # Allow traffic within K8S - change if your K8S cluster uses a different CIDR
                 - ipBlock:
                     cidr: ${NETWORK_K8S_CLUSTER_CIDR}
-                - ipBlock:
-                    cidr: ${NETWORK_K8S_SERVICE_CIDR}
