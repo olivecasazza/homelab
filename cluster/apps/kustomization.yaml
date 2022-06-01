@@ -13,5 +13,6 @@ resources:
   - networking
   - flux-system
   - monitoring
-  - media
+  # - media
   - vpn
+  - downloads
