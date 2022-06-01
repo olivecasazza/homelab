@@ -52,6 +52,9 @@ spec:
       gatewayLabel: setGateway
       gatewayAnnotation: setGateway
 
+    podAnnotations:
+      secret.reloader.stakater.com/reload: downloads-gateway-vpnconfig
+
     addons:
       netshoot:
         enabled: true
@@ -69,6 +72,7 @@ spec:
         env:
           TZ: "Europe/Stockholm"
           KILLSWITCH: false
+          IPTABLES_BACKEND: nft
 
         configFileSecret: downloads-gateway-vpnconfig
 
