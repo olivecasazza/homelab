@@ -94,8 +94,4 @@ spec:
                 - port: 1337
                   protocol: UDP
             - to:
-                # Allow traffic within K8S - change if your K8S cluster uses a different CIDR
-                - ipBlock:
-                    cidr: ${NETWORK_K8S_CLUSTER_CIDR}
-                - ipBlock:
-                    cidr: ${NETWORK_K8S_SERVICE_CIDR}
+                - namespaceSelector: {}
