@@ -68,6 +68,7 @@ spec:
 
         env:
           TZ: "Europe/Stockholm"
+          KILLSWITCH: false
 
         configFileSecret: downloads-gateway-vpnconfig
 
