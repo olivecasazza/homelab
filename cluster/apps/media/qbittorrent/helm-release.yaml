@@ -25,6 +25,9 @@ spec:
     podAnnotations:
       setGateway: "true"
 
+    probe:
+      startupProbe: {}
+
     ingress:
       main:
         enabled: true
