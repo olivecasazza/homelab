@@ -60,7 +60,7 @@ main() {
         envsubst < "${PROJECT_DIR}/tmpl/cluster/discord-secret.sops.yaml" \
             > "${PROJECT_DIR}/cluster/apps/monitoring/prometheus/discord-secret.sops.yaml"
         # encrypt cluster secrets
-        sops --encrypt --in-place "${PROJECT_DIR}/cluster/flux/cluster-secrets.sops.yaml"
+        sops --encrypt --in-place "${PROJECT_DIR}/cluster/config/cluster-secrets.sops.yaml"
         sops --encrypt --in-place "${PROJECT_DIR}/cluster/core/cert-manager/secret.sops.yaml"
         sops --encrypt --in-place "${PROJECT_DIR}/cluster/core/democratic-csi/nfs/secret.sops.yaml"
         sops --encrypt --in-place "${PROJECT_DIR}/cluster/apps/networking/cloudflare-ddns/secret.sops.yaml"
