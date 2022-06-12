@@ -14,3 +14,6 @@ resources:
   - traefik.yaml
   - weaveworks-kured.yaml
   - democratic-csi.yaml
+  - grafana.yaml
+  - rook-ceph.yaml
+  - prometheus-community.yaml
