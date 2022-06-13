@@ -76,13 +76,14 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-cloudflare-only@kubernetescrd"
         hosts:
-          - host: &host "echo-server.${SECRET_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
               - *host
+            secretName: "{{ .Release.Name }}-tls"
     # # FIXME: Uncomment this block to ensure multiple
     # # replicas of the pod are scheduled on different nodes
     # topologySpreadConstraints:
