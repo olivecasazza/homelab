@@ -65,7 +65,7 @@ spec:
         path: /mnt/hdd/k3s/nfs/media
         mountPath: /media
     metrics:
-      enabled: true
+      enabled: false
       prometheusRule:
         enabled: true
       exporter:
