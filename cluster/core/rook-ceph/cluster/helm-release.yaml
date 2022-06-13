@@ -32,12 +32,11 @@ spec:
         hosts:
           - host: "rook.${SECRET_DOMAIN}"
             paths:
-              - path: /
-                pathType: Prefix
+              - "/"
         tls:
-          - hosts:
+          - secretName: rook-tls
+            hosts:
               - "rook.${SECRET_DOMAIN}"
-            secretName: "rook-tls"
     cephClusterSpec:
       dashboard:
         enabled: true
