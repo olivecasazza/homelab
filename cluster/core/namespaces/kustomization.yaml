@@ -11,4 +11,4 @@ resources:
   - media.yaml
   - vpn.yaml
   - downloads.yaml
-  - rook-ceph.yaml
+  # - rook-ceph.yaml
