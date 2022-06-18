@@ -115,6 +115,7 @@ spec:
 
     ingress:
       enabled: true
+      ingressClassName: "traefik"
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-staging"
         external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
