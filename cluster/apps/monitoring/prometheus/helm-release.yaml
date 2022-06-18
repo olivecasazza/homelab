@@ -89,6 +89,24 @@ spec:
           multicluster:
             etcd:
               enabled: true
+    kubeControllerManager:
+      enabled: true
+      endpoints:
+        - 192.168.0.70
+        - 192.168.0.71
+        - 192.168.0.72
+    kubeScheduler:
+      enabled: true
+      endpoints:
+        - 192.168.0.70
+        - 192.168.0.71
+        - 192.168.0.72
+    kubeProxy:
+      enabled: true
+      endpoints:
+        - 192.168.0.70
+        - 192.168.0.71
+        - 192.168.0.72
     prometheusOperator:
       prometheusConfigReloader:
         resources:
@@ -126,24 +144,6 @@ spec:
               resources:
                 requests:
                   storage: 5Gi
-    kubeControllerManager:
-      enabled: true
-      endpoints:
-        - 192.168.0.70
-        - 192.168.0.71
-        - 192.168.0.72
-    kubeScheduler:
-      enabled: true
-      endpoints:
-        - 192.168.0.70
-        - 192.168.0.71
-        - 192.168.0.72
-    kubeProxy:
-      enabled: true
-      endpoints:
-        - 192.168.0.70
-        - 192.168.0.71
-        - 192.168.0.72
   valuesFrom:
     - kind: Secret
       name: discord-webhook
