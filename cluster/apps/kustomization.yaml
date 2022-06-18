@@ -12,4 +12,3 @@ resources:
   - networking
   # - system-upgrade
   - vpn
-  - metallb-system
