@@ -17,3 +17,4 @@ resources:
   - grafana.yaml
   - rook-ceph.yaml
   - prometheus-community.yaml
+  - nvidia-device-plugin.yaml
