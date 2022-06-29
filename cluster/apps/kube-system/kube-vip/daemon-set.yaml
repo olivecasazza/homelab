@@ -46,7 +46,7 @@ spec:
             - name: vip_retryperiod
               value: "2"
             - name: address
-              value: "192.168.0.210"
+              value: "10.0.0.210"
           securityContext:
             capabilities:
               add:
