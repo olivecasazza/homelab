@@ -18,3 +18,4 @@ resources:
   - rook-ceph.yaml
   - prometheus-community.yaml
   - nvidia-device-plugin.yaml
+  - node-feature-discovery.yaml
