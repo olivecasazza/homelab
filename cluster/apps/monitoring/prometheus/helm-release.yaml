@@ -92,24 +92,56 @@ spec:
           multicluster:
             etcd:
               enabled: true
+
+    coreDns:
+      enabled: true
+
+    kubeApiServer:
+      enabled: true
+
     kubeControllerManager:
       enabled: true
       endpoints:
         - 10.0.0.70
         - 10.0.0.71
         - 10.0.0.72
-    kubeScheduler:
+
+    kubeEtcd:
       enabled: true
-      endpoints:
-        - 10.0.0.70
-        - 10.0.0.71
-        - 10.0.0.72
+
+    kubelet:
+      enabled: true
+      serviceMonitor:
+        metricRelabelings:
+          - action: replace
+            sourceLabels:
+              - node
+            targetLabel: instance
+
     kubeProxy:
       enabled: true
       endpoints:
         - 10.0.0.70
         - 10.0.0.71
         - 10.0.0.72
+
+    kubeScheduler:
+      enabled: true
+      endpoints:
+        - 10.0.0.70
+        - 10.0.0.71
+        - 10.0.0.72
+
+    kubeStateMetrics:
+      enabled: true
+
+    kube-state-metrics:
+      fullnameOverride: kube-state-metrics
+      resources:
+        requests:
+          cpu: 15m
+          memory: 80M
+
     prometheusOperator:
       prometheusConfigReloader:
         resources:
