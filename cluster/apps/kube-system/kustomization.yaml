@@ -10,3 +10,4 @@ resources:
   - reflector
   - reloader
   - nvidia-device-plugin
+  - node-feature-discovery
