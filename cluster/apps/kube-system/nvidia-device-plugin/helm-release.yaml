@@ -16,3 +16,9 @@ spec:
         name: nvidia-device-plugin
         namespace: flux-system
       interval: 15m
+  values:
+    image:
+      repository: nvcr.io/nvidia/k8s-device-plugin
+      tag: v0.12.2
+    nodeSelector:
+      feature.node.kubernetes.io/pci-0300_10de.present: "true"
