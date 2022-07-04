@@ -101,7 +101,7 @@ spec:
                     cidr: 0.0.0.0/0
               ports:
               # VPN traffic port - change if your provider uses a different port
-                - port: 1337
+                - port: 51820
                   protocol: UDP
             - to:
                 - namespaceSelector: {}
