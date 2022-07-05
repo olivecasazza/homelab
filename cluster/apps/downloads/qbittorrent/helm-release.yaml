@@ -57,6 +57,10 @@ spec:
     startupProbe:
       enabled: false
 
+    podSecurityContext:
+      supplementalGroups:
+        - 100
+
     persistence:
       config:
         enabled: true
