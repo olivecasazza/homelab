@@ -102,9 +102,9 @@ spec:
     kubeControllerManager:
       enabled: true
       endpoints:
-        - 10.0.0.70
-        - 10.0.0.71
-        - 10.0.0.72
+        - 192.168.0.70
+        - 192.168.0.71
+        - 192.168.0.72
 
     kubeEtcd:
       enabled: true
@@ -121,16 +121,16 @@ spec:
     kubeProxy:
       enabled: true
       endpoints:
-        - 10.0.0.70
-        - 10.0.0.71
-        - 10.0.0.72
+        - 192.168.0.70
+        - 192.168.0.71
+        - 192.168.0.72
 
     kubeScheduler:
       enabled: true
       endpoints:
-        - 10.0.0.70
-        - 10.0.0.71
-        - 10.0.0.72
+        - 192.168.0.70
+        - 192.168.0.71
+        - 192.168.0.72
 
     kubeStateMetrics:
       enabled: true
