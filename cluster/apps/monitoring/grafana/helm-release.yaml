@@ -91,7 +91,7 @@ spec:
           url: https://grafana.com/api/dashboards/1860/revisions/22/download
           datasource: Prometheus
         speedtest-exporter:
-          gnetid: 13665
+          url: https://grafana.com/api/dashboards/13665/revisions/4/download
           datasource: Prometheus
 
     sidecar:
