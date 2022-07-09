@@ -92,7 +92,7 @@ spec:
           datasource: Prometheus
         speedtest-exporter:
           netId: 13665
-          revision: 4
+          revision: 1
           datasource: Prometheus
 
     sidecar:
