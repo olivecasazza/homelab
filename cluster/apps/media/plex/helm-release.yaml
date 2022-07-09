@@ -25,6 +25,8 @@ spec:
       TZ: "Europe/Stockholm"
       ADVERTISE_IP: "http://${LB_PLEX_IP}:32400/"
       ALLOWED_NETWORKS: "10.0.0.0/8,172.16.0.0/16,192.168.0.0/16"
+      NVIDIA_VISIBLE_DEVICES: "all"
+      NVIDIA_DRIVER_CAPABILITIES: "compute,video,utility"
       # PLEX_CLAIM: "${SECRET_PLEX_CLAIM_TOKEN}"
     podSecurityContext:
       supplementalGroups:
