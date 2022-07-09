@@ -19,15 +19,10 @@ spec:
   values:
     runtimeClassName: nvidia
     image:
-      repository: ghcr.io/k8s-at-home/plex
-      tag: v1.27.2.5929-a806c5905
+      repository: plexinc/pms-docker
+      tag: 1.27.2.5929-a806c5905
     env:
       TZ: "Europe/Stockholm"
-      ADVERTISE_IP: "http://${LB_PLEX_IP}:32400/"
-      ALLOWED_NETWORKS: "10.0.0.0/8,172.16.0.0/16,192.168.0.0/16"
-      NVIDIA_VISIBLE_DEVICES: "all"
-      NVIDIA_DRIVER_CAPABILITIES: "compute,video,utility"
-      # PLEX_CLAIM: "${SECRET_PLEX_CLAIM_TOKEN}"
     podSecurityContext:
       supplementalGroups:
         - 44
