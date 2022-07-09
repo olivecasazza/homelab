@@ -5,6 +5,7 @@ metadata:
   name: plex
   namespace: media
 spec:
+  runtimeClassName: nvidia
   interval: 5m
   chart:
     spec:
