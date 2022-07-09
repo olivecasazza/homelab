@@ -90,6 +90,9 @@ spec:
         node-exporter-full:
           url: https://grafana.com/api/dashboards/1860/revisions/22/download
           datasource: Prometheus
+        speedtest-exporter:
+          url: https://raw.githubusercontent.com/filipweilid/k3s-homelab/master/cluster/apps/monitoring/grafana/dashboards/speedtest-exporter.json
+          datasource: Prometheus
         cert-manager:
           url: https://gitlab.com/uneeq-oss/cert-manager-mixin/-/raw/master/dashboards/cert-manager.json
           datasource: Prometheus
