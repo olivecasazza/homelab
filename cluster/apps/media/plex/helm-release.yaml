@@ -32,6 +32,7 @@ spec:
       supplementalGroups:
         - 44
         - 5600
+        - 100
     service:
       main:
         type: LoadBalancer
