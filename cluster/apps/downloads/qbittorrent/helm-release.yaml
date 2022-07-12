@@ -71,7 +71,7 @@ spec:
         type: nfs
         server: "192.168.0.12"
         path: /mnt/hdd/k3s/nfs/media
-        mountPath: /media
+        mountPath: /downloads
         readonly: false
     metrics:
       enabled: true

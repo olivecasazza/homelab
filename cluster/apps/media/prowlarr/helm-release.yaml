@@ -43,6 +43,12 @@ spec:
       config:
         enabled: true
         size: 5Gi
+      media:
+        enabled: true
+        type: nfs
+        server: "192.168.0.12"
+        path: /mnt/hdd/k3s/nfs/media
+        mountPath: /downloads
     resources:
       requests:
         memory: 100Mi
