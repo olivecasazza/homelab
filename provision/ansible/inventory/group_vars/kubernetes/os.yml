@@ -28,3 +28,7 @@ packages:
   # - libva-utils
   # - libva-vdpau-driver
   # - libvdpau-va-gl
+
+packages_gpu:
+  - akmod-nvidia
+  - xorg-x11-drv-nvidia-cuda

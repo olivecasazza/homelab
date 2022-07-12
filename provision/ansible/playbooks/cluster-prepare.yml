@@ -47,6 +47,17 @@
             name: "{{ packages | default([]) }}"
             state: present
             update_cache: true
+        - name: Packages | Install gpu packages
+          ansible.builtin.dnf:
+            name: "{{ packages_gpu | default([]) }}"
+            state: present
+            update_cache: true
+          when: ansible_hostname == 'saphira'
+        - name: Packages | Install nvidia-container-toolkit
+          ansible.builtin.shell: |
+            curl -s -L https://nvidia.github.io/libnvidia-container/centos8/libnvidia-container.repo | sudo tee /etc/yum.repos.d/nvidia-container-toolkit.repo
+            sudo dnf install -y nvidia-container-toolkit
+          when: ansible_hostname == 'saphira'
         - name: Packages | Remove leaf packages
           ansible.builtin.dnf:
             autoremove: true
