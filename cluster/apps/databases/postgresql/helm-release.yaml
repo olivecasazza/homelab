@@ -29,7 +29,7 @@ spec:
     global:
       postgresql:
         auth:
-          postgresPassword: "${SECRET_POSTGRES_PASSWORD}"
+          existingSecret: postgresql-secrets
     image:
       registry: docker.io
       repository: bitnami/postgresql
