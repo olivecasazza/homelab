@@ -23,10 +23,6 @@ spec:
     remediation:
       retries: 5
   values:
-    command:
-      - sh
-      - -c
-      - ./Scripts/run-lldb.bash
     service:
       main:
         ports:
@@ -37,8 +33,8 @@ spec:
             port: 9001
     env:
       DB_DATABASE: rdmdb
-      DB_HOST: ${LB_POSTGRES}
-      DB_PORT: 5432
+      DB_HOST: ${LB_MYSQL}
+      DB_PORT: 3306
       WEB_SERVER_ADDRESS: 0.0.0.0
       WEB_SERVER_PORT: 9000
       WEBHOOK_SERVER_ADDRESS: 0.0.0.0
