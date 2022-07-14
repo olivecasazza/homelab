@@ -81,6 +81,13 @@ spec:
               - *host
             secretName: "{{ .Release.Name }}-tls"
     persistence:
+      images:
+        enabled: true
+        type: nfs
+        server: "192.168.0.12"
+        path: /mnt/hdd/k3s/nfs/rdm-images
+        mountPath: /app/resources/webroot/static/img
+        readonly: true
       backup:
         enabled: true
         type: nfs
