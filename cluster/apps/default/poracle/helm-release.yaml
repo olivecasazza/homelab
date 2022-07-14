@@ -74,10 +74,10 @@ spec:
       logs:
         enabled: true
         type: pvc
-        existingClaim: poracle-config-v1
+        existingClaim: poracle-logs-v1
         mountPath: /usr/src/app/logs/
       cache:
         enabled: true
         type: pvc
-        existingClaim: poracle-config-v1
+        existingClaim: poracle-cache-v1
         mountPath: /usr/src/app/.cache/

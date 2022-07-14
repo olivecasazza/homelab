@@ -2,7 +2,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: poracle-config-v1
+  name: poracle-cache-v1
   namespace: default
 spec:
   accessModes:
