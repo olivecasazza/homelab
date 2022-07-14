@@ -85,3 +85,4 @@ spec:
         server: "192.168.0.12"
         path: /mnt/hdd/k3s/nfs/rdm-backups
         mountPath: /app/backups
+        readonly: false
