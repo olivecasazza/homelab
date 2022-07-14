@@ -71,3 +71,10 @@ spec:
           - hosts:
               - *host
             secretName: "{{ .Release.Name }}-tls"
+    persistence:
+      backup:
+        enabled: true
+        type: nfs
+        server: "192.168.0.12"
+        path: /mnt/hdd/k3s/nfs/rdm-backups
+        mountPath: /app/backups
