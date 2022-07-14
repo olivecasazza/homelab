@@ -23,6 +23,14 @@ spec:
     remediation:
       retries: 5
   values:
+    service:
+      main:
+        ports:
+          http:
+            port: 9000
+          webhook:
+            enabled: true
+            port: 9001
     env:
       DB_DATABASE: rdmdb
       DB_HOST: ${LB_POSTGRES}
