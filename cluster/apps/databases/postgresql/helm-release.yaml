@@ -1,0 +1,69 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: postgresql
+  namespace: databases
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: postgresql
+      version: 11.6.16
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+      interval: 5m
+  install:
+    createNamespace: true
+    remediation: # perform remediation when helm install fails
+      retries: 3
+  upgrade:
+    remediation: # perform remediation when helm upgrade fails
+      retries: 3
+      remediateLastFailure: true # remediate the last failure, when no retries remain
+    cleanupOnFail: true
+  # values yaml: https://github.com/bitnami/charts/blob/master/bitnami/postgresql/values.yaml
+  values:
+    global:
+      postgresql:
+        auth:
+          postgresPassword: "${SECRET_POSTGRES_PASSWORD}"
+    image:
+      registry: docker.io
+      repository: bitnami/postgresql
+      tag: 14.4.0-debian-11-r9
+      pullPolicy: IfNotPresent
+
+    auth:
+      database: "postgres"
+
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+
+      resources:
+        requests:
+          cpu: 11m
+          memory: 32M
+        limits:
+          cpu: 11m
+          memory: 32M
+
+    primary:
+      persistence:
+        enabled: true
+        existingClaim: postgresql-config-v1
+
+      service:
+        type: LoadBalancer
+        loadBalancerIP: ${LB_POSTGRES}
+
+      resources:
+        requests:
+          cpu: 22m
+          memory: 256M
+        limits:
+          memory: 5129M
