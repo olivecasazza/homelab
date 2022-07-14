@@ -35,10 +35,6 @@ spec:
       DB_DATABASE: rdmdb
       DB_HOST: ${LB_POSTGRES}
       DB_PORT: 5436
-      DB_USERNAME: ${DB_USERNAME}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_ROOT_USERNAME: ${DB_ROOT_USERNAME}
-      DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
       WEB_SERVER_ADDRESS: 0.0.0.0
       WEB_SERVER_PORT: 9000
       WEBHOOK_SERVER_ADDRESS: 0.0.0.0
@@ -49,6 +45,9 @@ spec:
       MEMORY_CACHE_KEEP_TIME: 3600
       RAW_THREAD_LIMIT: 100
       LOG_LEVEL: debug #debug, info, warning
+    envFrom:
+      - secretRef:
+          name: rdm-secrets
     controller:
       replicas: 1
       strategy: RollingUpdate
