@@ -28,6 +28,8 @@ spec:
   values:
     auth:
       existingSecret: mariadb-secrets
+      database: poracle
+      username: poracleuser
     primary:
       persistence:
         enabled: true
