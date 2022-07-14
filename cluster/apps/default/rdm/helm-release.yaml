@@ -23,6 +23,9 @@ spec:
     remediation:
       retries: 5
   values:
+    podSecurityContext:
+      supplementalGroups:
+        - 100
     command:
       - sh
       - -c
