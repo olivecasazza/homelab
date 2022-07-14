@@ -1,0 +1,66 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: rdm
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: kah-common-chart
+      version: 1.1.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    env:
+      DB_DATABASE: rdmdb
+      DB_HOST: ${LB_POSTGRES}
+      DB_PORT: 5436
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_ROOT_USERNAME: ${DB_ROOT_USERNAME}
+      DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      WEB_SERVER_ADDRESS: 0.0.0.0
+      WEB_SERVER_PORT: 9000
+      WEBHOOK_SERVER_ADDRESS: 0.0.0.0
+      WEBHOOK_SERVER_PORT: 9001
+      WEBHOOK_ENDPOINT_TIMEOUT: 30
+      WEBHOOK_ENDPOINT_CONNECT_TIMEOUT: 30
+      MEMORY_CACHE_CLEAR_INTERVAL: 900
+      MEMORY_CACHE_KEEP_TIME: 3600
+      RAW_THREAD_LIMIT: 100
+      LOG_LEVEL: debug #debug, info, warning
+    controller:
+      replicas: 1
+      strategy: RollingUpdate
+    image:
+      repository: ghcr.io/realdevicemap/realdevicemap/realdevicemap
+      tag: c27b9f6bde983e3485d55346774b7d3256d344a9
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns/is-public: "true"
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+            secretName: "{{ .Release.Name }}-tls"
