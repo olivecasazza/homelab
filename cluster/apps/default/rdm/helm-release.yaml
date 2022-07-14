@@ -23,6 +23,10 @@ spec:
     remediation:
       retries: 5
   values:
+    command:
+      - sh
+      - -c
+      - ./Scripts/run-lldb.bash
     service:
       main:
         ports:
