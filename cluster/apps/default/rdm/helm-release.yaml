@@ -32,6 +32,8 @@ spec:
       - ./Scripts/run-lldb.bash
     service:
       main:
+        type: LoadBalancer
+        loadBalancerIP: ${LB_RDM}
         ports:
           http:
             port: 9000
