@@ -66,9 +66,11 @@ spec:
     persistence:
       config:
         enabled: true
-        type: pvc
-        existingClaim: poracle-config-v1
+        type: nfs
+        server: "192.168.0.12"
+        path: /mnt/hdd/k3s/nfs/poracle-config
         mountPath: /usr/src/app/config/
+        readonly: false
       logs:
         enabled: true
         type: pvc
