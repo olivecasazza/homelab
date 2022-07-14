@@ -37,8 +37,6 @@ spec:
       PORACLE_DB_TYPE: mysql
       PORACLE_DB_HOST: ${LB_MARIADB}
       PORACLE_DB_DATABASE: poracle
-      PORACLE_DB_USER: poracleuser
-      PORACLE_DB_PASSWORD: poracle_secure_database_password
     envFrom:
       - secretRef:
           name: poracle-secrets
@@ -46,8 +44,8 @@ spec:
       replicas: 1
       strategy: RollingUpdate
     image:
-      repository: ghcr.io/realdevicemap/realdevicemap/realdevicemap
-      tag: c27b9f6bde983e3485d55346774b7d3256d344a9
+      repository: ghcr.io/kartuludus/poraclejs
+      tag: develop
     ingress:
       main:
         enabled: true
