@@ -71,6 +71,9 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt-staging"
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           external-dns/is-public: "true"
+          nginx.ingress.kubernetes.io/auth-type: basic
+          nginx.ingress.kubernetes.io/auth-secret: htpasswd
+          nginx.ingress.kubernetes.io/auth-realm: "Enter your credentials"
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
