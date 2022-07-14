@@ -87,7 +87,7 @@ spec:
         server: "192.168.0.12"
         path: /mnt/hdd/k3s/nfs/rdm-images
         mountPath: /app/resources/webroot/static/img
-        readonly: true
+        readonly: false
       backup:
         enabled: true
         type: nfs
