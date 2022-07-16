@@ -54,6 +54,7 @@ spec:
       MEMORY_CACHE_KEEP_TIME: 3600
       RAW_THREAD_LIMIT: 100
       LOG_LEVEL: debug #debug, info, warning
+      NO_CELL_POKEMON: 1
     envFrom:
       - secretRef:
           name: rdm-secrets
