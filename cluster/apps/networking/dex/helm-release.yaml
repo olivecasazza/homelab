@@ -69,7 +69,7 @@ spec:
         config:
           inCluster: true
       frontend:
-        theme: coreos
+        theme: dark
         issuer: filipweilid
         issuerUrl: https://${SECRET_DOMAIN}
         logoUrl: https://imgur.com/Idzzln9.png
