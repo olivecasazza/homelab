@@ -43,9 +43,6 @@ spec:
     # see https://github.com/dexidp/dex/issues/2082
     env:
       KUBERNETES_POD_NAMESPACE: networking
-    envFrom:
-      - secretRef:
-          name: dex-secrets
     config:
       issuer: https://dex.${SECRET_DOMAIN}
       connectors:
