@@ -70,7 +70,7 @@ spec:
           inCluster: true
       frontend:
         theme: coreos
-        issuer: Milky Way
+        issuer: filipweilid
         issuerUrl: https://${SECRET_DOMAIN}
         logoUrl: https://imgur.com/Idzzln9.png
       expiry:
@@ -82,3 +82,4 @@ spec:
       oauth2:
         responseTypes: ["code", "token", "id_token"]
         skipApprovalScreen: true
+        alwaysShowLoginScreen: true
