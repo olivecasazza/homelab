@@ -38,9 +38,9 @@ spec:
         IP: 10 # must be an integer between 2 and VXLAN_GATEWAY_FIRST_DYNAMIC_IP (20 by default)
         ports:
           - type: udp
-            port: 57683
+            port: 58182
           - type: tcp
-            port: 57683
+            port: 58182
 
     settings:
       VPN_INTERFACE: wg0
