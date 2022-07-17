@@ -19,3 +19,4 @@ resources:
   - prometheus-community.yaml
   - nvidia-device-plugin.yaml
   - node-feature-discovery.yaml
+  - dex.yaml
