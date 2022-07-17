@@ -1,0 +1,53 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: oauth2-proxy
+  namespace: networking
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: oauth2-proxy
+      version: 6.2.2
+      sourceRef:
+        kind: HelmRepository
+        name: oauth2-proxy
+        namespace: flux-system
+  values:
+    envFrom:
+      - secretRef:
+          name: oauth2-proxy-secrets
+    image:
+      repository: quay.io/oauth2-proxy/oauth2-proxy
+      tag: v7.3.0
+    authenticatedEmailsFile:
+      enabled: true
+      restricted_access: |-
+        ${AUTHORIZED_EMAIL_ADDRESSES}
+    config:
+      clientID: ${DEX_OAUTH2_PROXY_CLIENT_ID}
+      clientSecret: ${DEX_OAUTH2_PROXY_CLIENT_SECRET}
+      cookieSecret: ${OAUTH2_PROXY_COOKIE_SECRET}
+    ingress:
+      enabled: true
+      className: nginx
+      path: /oauth2
+      pathType: Prefix
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-staging
+        external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_DOMAIN}
+      hosts:
+        - &host auth.${SECRET_DOMAIN}
+      tls:
+        - hosts:
+            - *host
+          secretName: auth-tls
+    extraArgs:
+      provider: oidc
+      oidc-issuer-url: https://dex.${SECRET_DOMAIN}
+      skip-provider-button:
+      pass-authorization-header:
+      email-domain: "*"
+      cookie-domain: .${SECRET_DOMAIN}
+      whitelist-domain: .${SECRET_DOMAIN}

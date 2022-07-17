@@ -20,3 +20,4 @@ resources:
   - nvidia-device-plugin.yaml
   - node-feature-discovery.yaml
   - dex.yaml
+  - oauth2-proxy.yaml
