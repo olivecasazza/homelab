@@ -106,6 +106,10 @@ spec:
 
     kubeEtcd:
       enabled: true
+      endpoints:
+        - 192.168.0.70
+        - 192.168.0.71
+        - 192.168.0.72
 
     kubelet:
       enabled: true
