@@ -118,6 +118,7 @@ spec:
     kubelet:
       enabled: true
       serviceMonitor:
+        cAdvisorMetricRelabelings: []
         metricRelabelings:
           - action: replace
             sourceLabels:
