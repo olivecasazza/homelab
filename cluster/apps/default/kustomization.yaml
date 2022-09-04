@@ -5,5 +5,5 @@ resources:
   - namespace.yaml
   - echo-server
   - hajimari
-  - rdm
-  - poracle
+  # - rdm
+  # - poracle
