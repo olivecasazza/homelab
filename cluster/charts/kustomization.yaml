@@ -1,22 +1,22 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - bitnami.yaml
-  - emberstack.yaml
-  - external-dns.yaml
-  - hajimari.yaml
-  - ingress-nginx.yaml
-  - jetstack.yaml
-  - k8s-at-home.yaml
-  - k8s-gateway.yaml
-  - metallb.yaml
-  - metrics-server.yaml
-  - stakater.yaml
-  - weaveworks-kured.yaml
-  - democratic-csi.yaml
-  - grafana.yaml
-  - prometheus-community.yaml
-  - nvidia-device-plugin.yaml
-  - node-feature-discovery.yaml
-  - dex.yaml
-  - oauth2-proxy.yaml
+  - bitnami-charts.yaml
+  - bjw-s-charts.yaml
+  - emberstack-charts.yaml
+  - external-dns-charts.yaml
+  - hajimari-charts.yaml
+  - ingress-nginx-charts.yaml
+  - jetstack-charts.yaml
+  - kubereboot-charts.yaml
+  - k8s-gateway-charts.yaml
+  - metallb-charts.yaml
+  - metrics-server-charts.yaml
+  - stakater-charts.yaml
+  - democratic-csi-charts.yaml
+  - grafana-charts.yaml
+  - prometheus-community-charts.yaml
+  - nvidia-device-plugin-charts.yaml
+  - node-feature-discovery-charts.yaml
+  - dex-charts.yaml
+  - oauth2-proxy-charts.yaml
