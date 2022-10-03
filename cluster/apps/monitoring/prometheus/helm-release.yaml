@@ -5,21 +5,22 @@ metadata:
   name: kube-prometheus-stack
   namespace: monitoring
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
-      # renovate: registryUrl=https://prometheus-community.github.io/helm-charts
       chart: kube-prometheus-stack
       version: 40.3.1
       sourceRef:
         kind: HelmRepository
-        name: prometheus-community
+        name: prometheus-community-charts
         namespace: flux-system
-      interval: 5m
   install:
     createNamespace: true
     remediation:
-      retries: 3
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   values:
     alertmanager:
       config:
@@ -54,14 +55,14 @@ spec:
               matchers:
                 - alertname =~ "InfoInhibitor|Watchdog"
             - receiver: "discord"
-              match_re:
-                severity: critical|warning|error
+              matchers:
+                - severity =~ "warning|critical"
               continue: true
         inhibit_rules:
-          - source_match:
-              severity: "critical"
-            target_match:
-              severity: "warning"
+          - source_matchers:
+              - severity = "critical"
+            target_matchers:
+              - severity = "warning"
             equal: ["alertname", "namespace"]
       ingress:
         enabled: true
@@ -76,72 +77,14 @@ spec:
               - *host
             secretName: "alert-manager-tls"
       alertmanagerSpec:
+        replicas: 3
+        podAntiAffinity: hard
         storage:
           volumeClaimTemplate:
             spec:
               resources:
                 requests:
                   storage: 1Gi
-    grafana:
-      enabled: false
-      forceDeployDashboards: true
-      sidecar:
-        dashboards:
-          multicluster:
-            etcd:
-              enabled: true
-
-    coreDns:
-      enabled: true
-
-    kubeApiServer:
-      enabled: true
-
-    kubeControllerManager:
-      enabled: true
-      endpoints:
-        - 192.168.0.70
-        - 192.168.0.71
-        - 192.168.0.72
-
-    kubeEtcd:
-      enabled: true
-      endpoints:
-        - 192.168.0.70
-        - 192.168.0.71
-        - 192.168.0.72
-      service:
-        enabled: true
-        port: 2381
-        targetPort: 2381
-
-    kubelet:
-      enabled: true
-      serviceMonitor:
-        cAdvisorMetricRelabelings: []
-        metricRelabelings:
-          - action: replace
-            sourceLabels:
-              - node
-            targetLabel: instance
-
-    kubeProxy:
-      enabled: true
-      endpoints:
-        - 192.168.0.70
-        - 192.168.0.71
-        - 192.168.0.72
-
-    kubeScheduler:
-      enabled: true
-      endpoints:
-        - 192.168.0.70
-        - 192.168.0.71
-        - 192.168.0.72
-
-    kubeStateMetrics:
-      enabled: true
-
     kube-state-metrics:
       metricLabelsAllowlist:
         - "persistentvolumeclaims=[*]"
@@ -155,34 +98,71 @@ spec:
               sourceLabels:
                 - __meta_kubernetes_pod_node_name
               targetLabel: kubernetes_node
-
-    prometheusOperator:
-      prometheusConfigReloader:
-        resources:
-          requests:
-            cpu: 100m
-            memory: 50Mi
-          limits:
-            cpu: 200m
-            memory: 100Mi
+    grafana:
+      enabled: false
+      forceDeployDashboards: true
+      sidecar:
+        dashboards:
+          multicluster:
+            etcd:
+              enabled: true
+    kubelet:
+      enabled: true
+      serviceMonitor:
+        metricRelabelings:
+          - action: replace
+            sourceLabels:
+              - node
+            targetLabel: instance
+    kubeApiServer:
+      enabled: true
+    kubeControllerManager:
+      enabled: true
+      endpoints:
+        - 192.168.0.70
+        - 192.168.0.71
+        - 192.168.0.72
+    kubeScheduler:
+      enabled: true
+      endpoints:
+        - 192.168.0.70
+        - 192.168.0.71
+        - 192.168.0.72
+    kubeProxy:
+      enabled: true
+      endpoints:
+        - 192.168.0.70
+        - 192.168.0.71
+        - 192.168.0.72
+    kubeEtcd:
+      enabled: true
+      endpoints:
+        - 192.168.0.70
+        - 192.168.0.71
+        - 192.168.0.72
+      service:
+        enabled: true
+        port: 2381
+        targetPort: 2381
     prometheus:
       ingress:
         enabled: true
         pathType: Prefix
         ingressClassName: "nginx"
         hosts:
-          - "prometheus.${SECRET_DOMAIN}"
+          - &host "prometheus.${SECRET_DOMAIN}"
         tls:
           - hosts:
-              - "prometheus.${SECRET_DOMAIN}"
+              - *host
       prometheusSpec:
-        replicas: 1
-        replicaExternalLabelName: "replica"
+        replicas: 3
+        replicaExternalLabelName: __replica__
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
-        retention: 6h
+        retention: 7d
+        retentionSize: 10GB
         enableAdminAPI: true
         walCompression: true
         storageSpec:
@@ -190,7 +170,7 @@ spec:
             spec:
               resources:
                 requests:
-                  storage: 5Gi
+                  storage: 15Gi
   valuesFrom:
     - kind: Secret
       name: discord-webhook
