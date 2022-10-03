@@ -5,47 +5,32 @@ metadata:
   name: grafana
   namespace: monitoring
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
       chart: grafana
       version: 6.40.0
       sourceRef:
         kind: HelmRepository
-        name: grafana
+        name: grafana-charts
         namespace: flux-system
-      interval: 5m
-  timeout: 20m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   values:
     replicas: 1
-    deploymentStrategy:
-      type: Recreate
-
-    env:
-      GF_EXPLORE_ENABLED: true
-      GF_PANELS_DISABLE_SANITIZE_HTML: true
-      GF_LOG_FILTERS: rendering:debug
-      GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
-
+    rbac:
+      pspEnabled: false
     admin:
       existingSecret: grafana-secrets
       userKey: adminUser
       passwordKey: adminPass
 
     grafana.ini:
-      server:
-        root_url: "https://grafana.${SECRET_DOMAIN}"
-      paths:
-        data: /var/lib/grafana/data
-        logs: /var/log/grafana
-        plugins: /var/lib/grafana/plugins
-        provisioning: /etc/grafana/provisioning
-      analytics:
-        check_for_updates: false
-      log:
-        mode: console
-      grafana_net:
-        url: https://grafana.net
       auth.basic:
         disable_login_form: false
 
@@ -63,9 +48,8 @@ spec:
               path: /var/lib/grafana/dashboards/default
 
     datasources:
-      datasource.yaml:
+      datasources.yaml:
         apiVersion: 1
-        # list of datasources that should be deleted from the database
         deleteDatasources:
           - name: Loki
             orgId: 1
@@ -74,14 +58,11 @@ spec:
             type: prometheus
             access: proxy
             url: http://kube-prometheus-stack-prometheus:9090/
-            orgId: 1
             isDefault: true
           - name: Loki
             type: loki
             access: proxy
             url: http://loki-gateway:80
-            ordId: 1
-
     dashboards:
       default:
         node-exporter-full:
@@ -104,10 +85,6 @@ spec:
       datasources:
         enabled: true
         searchNamespace: ALL
-
-    imageRenderer:
-      enabled: true
-
     plugins:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
@@ -115,10 +92,8 @@ spec:
       - vonage-status-panel
       - grafana-worldmap-panel
       - grafana-clock-panel
-
     serviceMonitor:
       enabled: true
-
     ingress:
       enabled: true
       ingressClassName: "nginx"
@@ -136,13 +111,5 @@ spec:
 
     persistence:
       enabled: false
-
-    resources:
-      requests:
-        cpu: 23m
-        memory: 110M
-      limits:
-        memory: 152M
-
     podAnnotations:
       configmap.reloader.stakater.com/reload: "grafana"
