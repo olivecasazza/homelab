@@ -77,7 +77,7 @@ spec:
               - *host
             secretName: "alert-manager-tls"
       alertmanagerSpec:
-        replicas: 3
+        replicas: 1
         podAntiAffinity: hard
         storage:
           volumeClaimTemplate:
@@ -155,7 +155,7 @@ spec:
           - hosts:
               - *host
       prometheusSpec:
-        replicas: 3
+        replicas: 1
         replicaExternalLabelName: __replica__
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
