@@ -8,5 +8,4 @@ resources:
   - ingress-nginx
   - metallb
   - k8s-gateway
-  - dex
-  - oauth2-proxy
+  - cert-manager
