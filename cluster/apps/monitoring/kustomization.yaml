@@ -4,5 +4,4 @@ kind: Kustomization
 resources:
   - prometheus
   - grafana
-  - speedtest-exporter
   - namespace.yaml
