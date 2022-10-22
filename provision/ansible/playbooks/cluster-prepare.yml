@@ -53,6 +53,12 @@
             state: present
             update_cache: true
           when: ansible_hostname == 'saphira'
+          # KNOWN ISSUE:
+          # https://github.com/NVIDIA/nvidia-docker/issues/1017#issuecomment-673152551
+          # Sometimes on install the symlink to /usr/bin/nvidia-container-runtime-hook is not created
+          # Reinstall the package to fix this
+          # sudo dnf reinstall -y nvidia-container-toolkit
+          # TODO: Add a check to see if the symlink exists
         - name: Packages | Install nvidia-container-toolkit
           ansible.builtin.shell: |
             curl -s -L https://nvidia.github.io/libnvidia-container/centos8/libnvidia-container.repo | sudo tee /etc/yum.repos.d/nvidia-container-toolkit.repo
