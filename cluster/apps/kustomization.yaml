@@ -4,10 +4,8 @@ kind: Kustomization
 resources:
   - default
   - downloads
-  - flux-system
   - kube-system
   # - media
   - monitoring
-  - networking
   - vpn
   # - system-upgrade
