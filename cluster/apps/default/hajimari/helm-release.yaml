@@ -26,7 +26,8 @@ spec:
     hajimari:
       defaultEnable: false
       namespaceSelector:
-        any: true
+        matchNames:
+          - default
       name: "you"
       customApps:
         - name: Some External Cluster Service
