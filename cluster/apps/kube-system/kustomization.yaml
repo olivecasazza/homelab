@@ -6,3 +6,4 @@ resources:
   - metrics-server
   - nvidia-device-plugin
   - node-feature-discovery
+  - kube-vip
