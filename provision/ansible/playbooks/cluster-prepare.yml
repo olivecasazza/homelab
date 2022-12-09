@@ -29,7 +29,7 @@
       block:
         - name: Packages | Install required packages
           ansible.builtin.dnf:
-            name: "{{ packages | default([]) }}"
+            name: "{{ fedora.packages | default([]) }}"
             state: present
             update_cache: true
         - name: Packages | Install gpu packages
