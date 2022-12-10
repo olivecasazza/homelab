@@ -7,7 +7,6 @@
 # (string) Use a specific version of k3s
 # renovate: datasource=github-releases depName=k3s-io/k3s
 k3s_release_version: "v1.24.8+k3s1"
-
 # (bool) Install using hard links rather than symbolic links.
 k3s_install_hard_links: true
 # (bool) Escalate user privileges for all tasks
@@ -43,7 +42,8 @@ k3s_server_manifests_urls:
     filename: monitoring.coreos.com_servicemonitors.yaml
   - url: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.60.1/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml
     filename: monitoring.coreos.com_thanosrulers.yaml
-
+  - url: https://kube-vip.io/manifests/rbac.yaml
+    filename: kube-vip-rbac.yaml
 # (list) A flat list of templates to deploy on the primary control plane
 # /var/lib/rancher/k3s/server/manifests
 k3s_server_manifests_templates:
