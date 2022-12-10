@@ -6,6 +6,6 @@ resources:
   # - ./downloads
   - ./kube-system
   # - ./media
-  # - ./monitoring
+  - ./monitoring
   # - ./vpn
   # - ./system-upgrade
