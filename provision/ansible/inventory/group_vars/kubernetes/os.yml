@@ -28,8 +28,6 @@ packages_gpu:
   - xorg-x11-drv-nvidia-cuda
 
 ubuntu:
-  # disable_ufw: true
-  # disable_swap: true
   packages:
     - hdparm
     - htop
