@@ -38,6 +38,7 @@ spec:
           group_wait: 30s
           receiver: discord
           repeat_interval: 12h
+          #TODO use matchers instead of deprecated match
           routes:
             - match:
                 alertname: Watchdog
