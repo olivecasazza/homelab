@@ -5,7 +5,7 @@ resources:
   - ./default
   # - ./downloads
   - ./kube-system
-  # - ./media
+  - ./media
   - ./monitoring
   - ./flux-system
   # - ./vpn
