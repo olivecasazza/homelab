@@ -8,18 +8,16 @@ spec:
   interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: sonarr
-      version: 16.3.2
+      chart: app-template
+      version: 1.2.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-      interval: 5m
   values:
     image:
-      repository: ghcr.io/k8s-at-home/sonarr
-      tag: v3.0.9.1549
+      repository: ghcr.io/onedr0p/sonarr-develop
+      tag: 4.0.0.281@sha256:add6e9e50783af3719cb9ad2855e039718d742edd36d2ba096673a9113aa7229
     env:
       TZ: ${TIMEZONE}
     ingress:
@@ -30,8 +28,6 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt-staging"
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           external-dns/is-public: "true"
-          nginx.ingress.kubernetes.io/auth-url: https://auth.${SECRET_DOMAIN}/oauth2/auth
-          nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN}/oauth2/start
           hajimari.io/enable: "true"
         hosts:
           - host: "sonarr.${SECRET_DOMAIN}"
