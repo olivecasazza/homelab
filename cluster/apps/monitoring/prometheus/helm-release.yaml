@@ -38,14 +38,13 @@ spec:
           group_wait: 30s
           receiver: discord
           repeat_interval: 12h
-          #TODO use matchers instead of deprecated match
           routes:
-            - match:
-                alertname: Watchdog
-              receiver: "null"
-            - match:
-                severity: critical
-              receiver: discord
+            - receiver: "null"
+              matchers:
+                - alertname = Watchdog
+            - receiver: discord
+              matchers:
+                - severity =~ "warning|critical|info"
       ingress:
         enabled: true
         pathType: Prefix
