@@ -28,10 +28,13 @@ spec:
     image:
       repository: ghcr.io/onedr0p/tautulli
       tag: 2.10.5@sha256:a91037fa546ca6997d7646f580702f697825dd9f9b0e1e23bcbbfdb677c4c71a
-
     env:
       TZ: "${TIMEZONE}"
-
+    service:
+      main:
+        ports:
+          http:
+            port: 8181
     ingress:
       main:
         enabled: true

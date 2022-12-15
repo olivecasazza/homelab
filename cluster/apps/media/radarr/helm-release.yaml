@@ -21,6 +21,15 @@ spec:
       tag: 4.3.1.6822@sha256:2d61733e8b7054dd723eb158eb8f44d63cad1c3261058a759884b50838a6964d
     env:
       TZ: ${TIMEZONE}
+      RADARR__INSTANCE_NAME: Radarr
+      RADARR__PORT: &port 80
+      RADARR__APPLICATION_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
+      RADARR__LOG_LEVEL: info
+    service:
+      main:
+        ports:
+          http:
+            port: *port
     ingress:
       main:
         enabled: true
