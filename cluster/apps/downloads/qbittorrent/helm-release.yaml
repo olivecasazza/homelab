@@ -64,10 +64,10 @@ spec:
       config:
         enabled: true
         existingClaim: qbittorrent-config
-      media:
-        enabled: true
-        type: nfs
-        server: "192.168.0.12"
-        path: /mnt/hdd/k3s/nfs/media
-        mountPath: /downloads
-        readonly: false
+      # media:
+      #   enabled: true
+      #   type: nfs
+      #   server: "192.168.0.12"
+      #   path: /mnt/hdd/k3s/nfs/media
+      #   mountPath: /downloads
+      #   readonly: false
