@@ -7,4 +7,3 @@ resources:
   # Standard Resources
   - ./add-ons/monitoring
   - ./add-ons/notifications
-  - ./add-ons/webhooks
