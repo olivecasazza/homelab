@@ -14,4 +14,3 @@ resources:
   - ./reloader
   - ./nvidia-device-plugin
   - ./node-feature-discovery
-  - ./kube-vip
