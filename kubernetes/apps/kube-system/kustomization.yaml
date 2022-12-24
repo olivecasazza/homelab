@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./kube-vip/ks.yaml
+  - ./node-feature-discovery/ks.yaml
   - ./metrics-server/ks.yaml
   - ./reloader/ks.yaml
