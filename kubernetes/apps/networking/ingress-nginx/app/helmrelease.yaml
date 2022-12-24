@@ -58,6 +58,9 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
+      extraArgs:
+        default-ssl-certificate: |-
+          networking/filipweilid-tls
       podAnnotations:
         configmap.reloader.stakater.com/reload: "cloudflare-networks"
       resources:
