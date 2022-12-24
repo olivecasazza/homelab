@@ -25,21 +25,42 @@ spec:
     - name: downloads-gateway
       namespace: vpn
   values:
+    controller:
+      type: statefulset
     image:
       repository: ghcr.io/onedr0p/qbittorrent
       tag: 4.5.0@sha256:fbe9ad5ed471ca085e501f934aeb6fbfb0566d48e366514fa29c665d43c319db
     env:
       TZ: "Europe/Stockholm"
+      QBITTORRENT__PORT: &port 80
+      QBITTORRENT__BT__PORT: &port-bt 58182
 
     hostname: qbittorrent
 
     podAnnotations:
       setGateway: "true"
 
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+      bittorrent:
+        enabled: true
+        type: LoadBalancer
+        externalIPs: ["${SVC_QBITTORRENT_ADDR}"]
+        ports:
+          bittorrent:
+            enabled: true
+            port: *port-bt
+            protocol: TCP
+            targetPort: *port-bt
+        externalTrafficPolicy: Local
+
     ingress:
       main:
         enabled: true
-        ingressClassName: "nginx"
+        ingressClassName: nginx
         annotations:
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           external-dns.home.arpa/enabled: "true"
