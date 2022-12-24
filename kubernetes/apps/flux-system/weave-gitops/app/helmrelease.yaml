@@ -29,6 +29,8 @@ spec:
       enabled: true
       className: nginx
       annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-staging"
+        external-dns.home.arpa/enabled: "true"
         hajimari.io/icon: "sawtooth-wave"
       hosts:
         - host: &host "gitops.${SECRET_DOMAIN}"
