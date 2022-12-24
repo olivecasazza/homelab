@@ -77,9 +77,7 @@ spec:
       enabled: true
       ingressClassName: nginx
       annotations:
-        cert-manager.io/cluster-issuer: "letsencrypt-staging"
         external-dns.home.arpa/enabled: "true"
-        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
         hajimari.io/icon: simple-icons:grafana
       hosts:
         - &host grafana.${SECRET_DOMAIN}
