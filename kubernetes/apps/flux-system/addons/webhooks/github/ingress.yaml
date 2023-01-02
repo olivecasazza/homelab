@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: webhook-receiver
+  name: flux-webhook
   namespace: flux-system
   annotations:
     external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
@@ -11,7 +11,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: &host "flux-receiver.${SECRET_DOMAIN}"
+    - host: &host "flux-webhook.${SECRET_DOMAIN}"
       http:
         paths:
           - path: /hook/
@@ -24,4 +24,4 @@ spec:
   tls:
     - hosts:
         - *host
-      secretName: flux-receiver-tls
+      secretName: flux-webhook-tls
