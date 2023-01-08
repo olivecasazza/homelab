@@ -33,6 +33,7 @@ ubuntu:
     - ipvsadm
     - lm-sensors
     - nano
+    - nfs-common
     - nvme-cli
     - socat
     - python3-kubernetes
