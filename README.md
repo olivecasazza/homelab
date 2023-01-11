@@ -214,7 +214,7 @@ In order to use Terraform and `cert-manager` with the Cloudflare DNS challenge y
    task ansible:prepare
    ```
 
-6. Reboot the nodes
+6. Reboot the nodes (if not done in step 5)
 
    ```sh
    task ansible:force-reboot
