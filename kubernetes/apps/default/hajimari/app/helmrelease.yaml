@@ -14,13 +14,17 @@ spec:
         kind: HelmRepository
         name: hajimari
         namespace: flux-system
+  maxHistory: 3
   install:
     createNamespace: true
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
   values:
     hajimari:
       title: Apps
@@ -52,7 +56,6 @@ spec:
         tls:
           - hosts:
               - *host
-            secretName: hajimari-tls
     podAnnotations:
       configmap.reloader.stakater.com/reload: hajimari-settings
     persistence:

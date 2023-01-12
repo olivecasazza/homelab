@@ -14,13 +14,17 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  maxHistory: 3
   install:
     createNamespace: true
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
   values:
     controller:
       strategy: RollingUpdate
@@ -63,7 +67,6 @@ spec:
         tls:
           - hosts:
               - *host
-            secretName: echo-server-tls
     resources:
       requests:
         cpu: 5m
