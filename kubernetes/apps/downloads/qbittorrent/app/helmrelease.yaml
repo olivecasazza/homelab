@@ -29,7 +29,7 @@ spec:
       type: statefulset
     image:
       repository: ghcr.io/onedr0p/qbittorrent
-      tag: 4.5.0@sha256:c070aa47a28188cf562c3a32a2855db5817145d7da7026a6acf0fc6d0c779481
+      tag: 4.5.1@sha256:6e9433f545ae6b0a2b59a15ab24889031440fffc4515dfebb1829f2172fb9b00
     env:
       TZ: "Europe/Stockholm"
       QBITTORRENT__PORT: &port 80
