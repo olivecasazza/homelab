@@ -79,7 +79,7 @@ spec:
 
         env:
           - name: TZ
-            value: "Europe/Stockholm"
+            value: "Europe/Copenhagen"
           - name: KILLSWITCH
             value: false
           - name: IPTABLES_BACKEND
