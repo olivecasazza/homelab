@@ -24,6 +24,7 @@ spec:
   values:
     replicas: 1
     env:
+      GF_SECURITY_COOKIE_SAMESITE: grafana
       GF_SERVER_ROOT_URL: "https://grafana.${SECRET_DOMAIN}"
     rbac:
       pspEnabled: false
