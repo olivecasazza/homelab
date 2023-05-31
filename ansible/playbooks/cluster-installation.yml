@@ -64,7 +64,7 @@
       run_once: true
       when:
         - k3s_server_manifests_templates | length > 0
-          or k3s_server_manifests_urls | length > 0
+            or k3s_server_manifests_urls | length > 0
         - k3s_control_node is defined
         - k3s_control_node
       block:
