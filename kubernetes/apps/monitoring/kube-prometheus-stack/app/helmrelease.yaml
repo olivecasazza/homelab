@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: kube-prometheus-stack
-      version: 46.8.0
+      version: 47.0.0
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
@@ -31,6 +31,8 @@ spec:
   dependsOn:
     - name: local-path-provisioner
       namespace: kube-system
+    - name: ingress-nginx
+      namespace: networking
   values:
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
@@ -75,6 +77,14 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
+    grafana:
+      enabled: false
+      forceDeployDashboards: true
+      sidecar:
+        dashboards:
+          multicluster:
+            etcd:
+              enabled: true
     kube-state-metrics:
       metricLabelsAllowlist:
         - "pods=[*]"
@@ -89,14 +99,6 @@ spec:
               replacement: $1
               sourceLabels: ["__meta_kubernetes_pod_node_name"]
               targetLabel: kubernetes_node
-    grafana:
-      enabled: false
-      forceDeployDashboards: true
-      sidecar:
-        dashboards:
-          multicluster:
-            etcd:
-              enabled: true
     kubelet:
       enabled: true
       serviceMonitor:
@@ -126,9 +128,7 @@ spec:
     kubeControllerManager:
       enabled: true
       endpoints: &cp
-        - 192.168.1.70
-        - 192.168.1.71
-        - 192.168.1.72
+        - 127.0.0.1 # Replaced by configure
       serviceMonitor:
         metricRelabelings:
           # Remove duplicate metrics
@@ -167,9 +167,9 @@ spec:
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
-        retentionSize: 8GB
         enableAdminAPI: true
         walCompression: true
+        retentionSize: 8GB
         storageSpec:
           volumeClaimTemplate:
             spec:

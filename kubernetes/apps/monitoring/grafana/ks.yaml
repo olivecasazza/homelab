@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-grafana-app
+  name: cluster-apps-grafana
   namespace: flux-system
 spec:
   path: ./kubernetes/apps/monitoring/grafana/app
@@ -11,11 +11,6 @@ spec:
     kind: GitRepository
     name: home-kubernetes
   wait: false # no flux ks dependents
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: grafana
-      namespace: monitoring
   interval: 30m
   retryInterval: 1m
   timeout: 5m
