@@ -8,9 +8,6 @@ k3s_server:
   tls-san:
     - "{{ kubevip_address }}"
   docker: false
-  node-taint:
-    - "node-role.kubernetes.io/master=true:NoSchedule"
-    - "node-role.kubernetes.io/control-plane=true:NoSchedule"
   flannel-backend: "none"             # This needs to be in quotes
   disable:
     - flannel                         # Disable flannel                 - replaced with Cilium
