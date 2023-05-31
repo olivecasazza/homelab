@@ -56,3 +56,6 @@ spec:
     - name: kubeconfig
       hostPath:
         path: /etc/rancher/k3s/k3s.yaml
+  tolerations:
+    - { key: node-role.kubernetes.io/control-plane, operator: Exists }
+    - { key: node-role.kubernetes.io/master, operator: Exists }
