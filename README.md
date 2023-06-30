@@ -17,7 +17,7 @@ _based on the amazing work from [k8s-at-home/flux-cluster-template](https://gith
 
 ## 📖 Overview
 
-My [k3s](https://k3s.io/) cluster consists of 3 Raspberry Pi 4 Model B 8GB server nodes running Fedora 36 Server and 1 x86 agent node. It is all provisioned using the [Ansible](https://www.ansible.com/) galaxy role [ansible-role-k3s](https://github.com/PyratLabs/ansible-role-k3s).
+My [k3s](https://k3s.io/) cluster consists of 3 Raspberry Pi 4 Model B 8GB server nodes and 1 x86 worker node running Ubuntu 22.04. It is all provisioned using the [Ansible](https://www.ansible.com/) galaxy role [ansible-role-k3s](https://github.com/PyratLabs/ansible-role-k3s).
 
 ### Core Components
 
