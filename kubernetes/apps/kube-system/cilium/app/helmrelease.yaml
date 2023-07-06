@@ -5,11 +5,11 @@ metadata:
   name: cilium
   namespace: kube-system
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: cilium
-      version: 1.13.3
+      version: 1.14.0-rc.0
       sourceRef:
         kind: HelmRepository
         name: cilium
@@ -26,19 +26,24 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    autoDirectNodeRoutes: true
     bpf:
       masquerade: true
+    bgp:
+      enabled: false
     cluster:
       name: home-cluster
       id: 1
     containerRuntime:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
+    endpointRoutes:
+      enabled: true
     hubble:
       enabled: true
       metrics:
         enabled:
-          - dns:query;ignoreAAAA
+          - dns:query
           - drop
           - tcp
           - flow
@@ -59,6 +64,8 @@ spec:
         ingress:
           enabled: true
           className: nginx
+          annotations:
+            hajimari.io/icon: simple-icons:cilium
           hosts:
             - &host "hubble.${SECRET_DOMAIN}"
           tls:
@@ -66,12 +73,12 @@ spec:
                 - *host
     ipam:
       mode: kubernetes
-    k8sServiceHost: "${KUBE_VIP_ADDR}"
+    k8sServiceHost: "192.168.1.210"
     k8sServicePort: 6443
+    ipv4NativeRoutingCIDR: "10.42.0.0/16"
     kubeProxyReplacement: strict
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     operator:
-      replicas: 1
       rollOutPods: true
       prometheus:
         enabled: true
@@ -82,3 +89,11 @@ spec:
       serviceMonitor:
         enabled: true
     rollOutCiliumPods: true
+    l2announcements:
+      enabled: true
+    loadBalancer:
+      algorithm: maglev
+      mode: dsr
+    securityContext:
+      privileged: true
+    tunnel: disabled

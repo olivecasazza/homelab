@@ -1,0 +1,19 @@
+---
+kubernetes:
+  children:
+    master:
+      hosts:
+        archonei:
+          ansible_user: hadmin
+          ansible_host: 192.168.1.70
+        valryon:
+          ansible_user: hadmin
+          ansible_host: 192.168.1.71
+        vermithrax:
+          ansible_user: hadmin
+          ansible_host: 192.168.1.72
+    worker:
+      hosts:
+        saphira:
+          ansible_user: hadmin
+          ansible_host: 192.168.1.80
