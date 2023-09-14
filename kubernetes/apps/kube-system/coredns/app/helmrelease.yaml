@@ -9,14 +9,13 @@ spec:
   chart:
     spec:
       chart: coredns
-      version: 1.24.1
+      version: 1.26.0
       sourceRef:
         kind: HelmRepository
         name: coredns
         namespace: flux-system
   maxHistory: 2
   install:
-    createNamespace: true
     remediation:
       retries: 3
   upgrade:
@@ -28,8 +27,10 @@ spec:
   values:
     fullnameOverride: coredns
     replicaCount: 1
+    k8sAppLabelOverride: kube-dns
     service:
-      clusterIP: "10.43.0.10"
+      name: kube-dns
+      clusterIP: "${COREDNS_ADDR}"
     serviceAccount:
       create: true
     deployment:

@@ -19,26 +19,11 @@
       block:
         - name: Packages | Install
           ansible.builtin.apt:
-            name: apt-transport-https,ca-certificates,conntrack,curl,dirmngr,gdisk,gnupg,htop,
+            name: apt-transport-https,ca-certificates,conntrack,curl,dirmngr,gdisk,gnupg,hdparm,htop,
               iptables,iputils-ping,ipvsadm,libseccomp2,lm-sensors,neofetch,net-tools,nfs-common,
               nvme-cli,open-iscsi,parted,psmisc,python3,python3-apt,python3-kubernetes,python3-yaml,
               smartmontools,socat,software-properties-common,unzip,util-linux
             install_recommends: false
-        - name: Packages | Setup nvidia package repository
-          ansible.builtin.shell: |
-            distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
-            && curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor --batch --yes -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
-            && curl -s -L https://nvidia.github.io/libnvidia-container/$distribution/libnvidia-container.list | \
-            sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
-            sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
-          when: inventory_hostname == 'saphira'
-        - name: Packages | Install gpu packages
-          ansible.builtin.apt:
-            name: nvidia-headless-525-server,nvidia-container-runtime
-            state: present
-            install_recommends: false
-            update_cache: true
-          when: inventory_hostname == 'saphira'
 
     - name: User Configuration
       block:
@@ -48,9 +33,10 @@
             key: "https://github.com/{{ github_username }}.keys"
         - name: User Configuration | Silence login
           ansible.builtin.file:
-            dest: /root/.hushlogin
+            dest: "{{ '/home/' + ansible_user if ansible_user != 'root' else '/root' }}/.hushlogin"
             state: touch
             owner: "{{ ansible_user }}"
+            group: "{{ ansible_user }}"
             mode: "0644"
             modification_time: preserve
             access_time: preserve
@@ -66,7 +52,6 @@
             content: |
               127.0.0.1 localhost
               127.0.1.1 {{ inventory_hostname }}
-
               # The following lines are desirable for IPv6 capable hosts
               ::1     localhost ip6-localhost ip6-loopback
               ff02::1 ip6-allnodes
