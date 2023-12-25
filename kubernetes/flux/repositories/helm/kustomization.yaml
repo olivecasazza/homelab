@@ -10,9 +10,6 @@ resources:
   - ./external-dns.yaml
   - ./grafana.yaml
   - ./hajimari.yaml
-  - ./jellyfin.yaml
-  - ./qbittorent.yaml
-  - ./longhorn.yaml
   - ./ingress-nginx.yaml
   - ./jetstack.yaml
   - ./k8s-gateway.yaml
