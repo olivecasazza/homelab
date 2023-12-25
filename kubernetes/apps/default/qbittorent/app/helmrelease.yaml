@@ -101,9 +101,6 @@ metadata:
   name: media-pvc
   namespace: default
 spec:
-  dependsOn:
-    - name: local-path-provisioner
-      namespace: kube-system
   accessModes:
     - ReadWriteOnce
   storageClassName: longhorn
