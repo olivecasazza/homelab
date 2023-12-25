@@ -12,7 +12,7 @@ spec:
   chart:
     spec:
       chart: qbittorent
-      version: 5.0.1
+      version: 17.0.4
       sourceRef:
         kind: HelmRepository
         name: qbittorent
