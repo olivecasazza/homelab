@@ -1,0 +1,67 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: longhorn
+  namespace: default
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: longhorn
+      version: 2.0.2
+      sourceRef:
+        kind: HelmRepository
+        name: longhorn
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    # backupTarget: s3://backupbucket@us-east-1/backupstore
+    # backupTargetCredentialSecret: minio-secret
+    # createDefaultDiskLabeledNodes: true
+    defaultDataPath: /mnt/sdb/
+    # replicaSoftAntiAffinity: false
+    # storageOverProvisioningPercentage: 600
+    # storageMinimalAvailablePercentage: 15
+    # upgradeChecker: false
+    # defaultReplicaCount: 2
+    # defaultDataLocality: disabled
+    # guaranteedEngineCPU:
+    # defaultLonghornStaticStorageClass: longhorn-static-example
+    # backupstorePollInterval: 500
+    # taintToleration: key1=value1:NoSchedule; key2:NoExecute
+    # systemManagedComponentsNodeSelector: "label-key1:label-value1"
+    # priority-class: high-priority
+    # autoSalvage: false
+    # disableSchedulingOnCordonedNode: false
+    # replicaZoneSoftAntiAffinity: false
+    # volumeAttachmentRecoveryPolicy: never
+    # nodeDownPodDeletionPolicy: do-nothing
+    # mkfsExt4Parameters: -O ^64bit,^metadata_csum
+    # guaranteed-engine-manager-cpu: 15
+    # guaranteed-replica-manager-cpu: 15
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - host: &host "longhorn.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128M
