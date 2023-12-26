@@ -25,12 +25,14 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    qbittorrent:
+      defaultEnable: true
     ingress:
       main:
         enabled: true
         ingressClassName: internal
         annotations:
-          qbittorrent.io/enable: "true"
+          qbittorrent.io/enable: "false"
         hosts:
           - host: &host "qbittorrent.${SECRET_DOMAIN}"
             paths:
@@ -39,3 +41,11 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      data:
+        enabled: true
+        type: emptyDir
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128M
