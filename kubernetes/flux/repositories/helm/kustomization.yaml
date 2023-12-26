@@ -10,7 +10,7 @@ resources:
   - ./external-dns.yaml
   - ./grafana.yaml
   - ./hajimari.yaml
-  - ./qbittorrent/ks.yaml
+  - ./qbittorrent.yaml
   - ./ingress-nginx.yaml
   - ./jetstack.yaml
   - ./k8s-gateway.yaml
