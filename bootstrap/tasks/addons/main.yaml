@@ -8,6 +8,9 @@
   when: hajimari.enabled | default(false)
   ansible.builtin.include_tasks: hajimari.yaml
 
+- name: Process addon qbittorrent
+  ansible.builtin.include_tasks: qbittorrent.yaml
+
 - name: Process addon grafana
   when: grafana.enabled | default(false)
   ansible.builtin.include_tasks: grafana.yaml
