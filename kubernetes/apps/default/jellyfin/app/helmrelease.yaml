@@ -54,6 +54,8 @@ spec:
     nodeSelector:
       kubernetes.io/hostname: jensen
     persistence:
+      config:
+        enabled: false
       data:
         enabled: true
         isPvc: true
