@@ -31,7 +31,7 @@ metadata:
   name: jellyfin
   namespace: default
 spec:
-  interval: 30m
+  interval: 30s
   chart:
     spec:
       chart: jellyfin
