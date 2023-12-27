@@ -61,7 +61,7 @@ spec:
         # Valid options are pvc, emptyDir, hostPath, secret, configMap or custom
         type: pvc
             # -- If you want to reuse an existing claim, the name of the existing PVC can be passed here.
-        existingClaim: qbittorrent-media  # your-claim
+        existingClaim: qbittorrent-media-claim  # your-claim
 
         # -- Used in conjunction with `existingClaim`. Specifies a sub-path inside the referenced volume instead of its root
         # subPath: /
