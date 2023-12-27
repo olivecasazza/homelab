@@ -2,17 +2,15 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: media-nfs-pv
-  labels:
-    type: media-nfs
 spec:
-  storageClassName: "nfs"
   capacity:
     storage: 7T
   accessModes:
     - ReadWriteMany
   nfs:
+    path: /mnt/sdb
     server: 192.168.0.13
-    path: "/mnt/sdb/"
+    readOnly: false
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -22,7 +20,7 @@ spec:
   storageClassName: "nfs"
   selector:
     matchLabels:
-      type: "media-nfs"
+      type: "media-nfs-pv"
   accessModes:
     - ReadWriteMany
   resources:
