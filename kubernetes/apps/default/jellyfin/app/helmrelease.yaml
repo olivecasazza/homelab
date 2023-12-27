@@ -5,6 +5,8 @@ metadata:
   labels:
     type: local
 spec:
+  nodeSelector:
+    kubernetes.io/hostname: jensen
   storageClassName: media
   capacity:
     storage: 100Gi
