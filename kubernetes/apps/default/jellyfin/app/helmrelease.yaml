@@ -52,11 +52,13 @@ spec:
     keepHistory: false
   values:
     persistence:
+      config:
+        enabled: false
       data:
         enabled: true
-        isPvc: true
+        # isPvc: true
         existingClaim: "media-nfs-pvc"
-        storageClass: "nfs"
+        # storageClass: "nfs"
     ingress:
       main:
         enabled: true
