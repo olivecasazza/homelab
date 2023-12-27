@@ -14,7 +14,8 @@ spec:
         name: qbittorrent
         namespace: flux-system
   maxHistory: 2
-
+  dependsOn:
+    - name: cluster-apps-jellyfin
   install:
     remediation:
       retries: 3
