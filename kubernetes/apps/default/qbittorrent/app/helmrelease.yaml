@@ -4,7 +4,7 @@ metadata:
   name: qbittorrent
   namespace: default
 spec:
-  interval: 30m
+  interval: 30s
   chart:
     spec:
       chart: qbittorrent
