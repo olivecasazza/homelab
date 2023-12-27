@@ -3,6 +3,7 @@ kind: PersistentVolume
 metadata:
   name: media-nfs-pv
 spec:
+  storageClassName: "nfs"
   capacity:
     storage: 7T
   accessModes:
