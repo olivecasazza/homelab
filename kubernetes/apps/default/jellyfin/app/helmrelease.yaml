@@ -59,6 +59,14 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    affinity:
+      required:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - jensen
     nodeSelector:
       kubernetes.io/hostname: jensen
     persistence:
