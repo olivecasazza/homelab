@@ -39,7 +39,7 @@ spec:
         enabled: true
         ingressClassName: internal
         annotations:
-          qbittorrent.io/enable: "false"
+          qbittorrent.io/enable: "true"
         hosts:
           - host: &host "qbittorrent.${SECRET_DOMAIN}"
             paths:
