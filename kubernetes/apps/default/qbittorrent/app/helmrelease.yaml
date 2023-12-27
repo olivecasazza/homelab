@@ -26,21 +26,21 @@ spec:
     keepHistory: false
 
 
-  # values:
-  #   ingress:
-  #     main:
-  #       enabled: true
-  #       ingressClassName: internal
-  #       annotations:
-  #         qbittorrent.io/enable: "false"
-  #       hosts:
-  #         - host: &host "qbittorrent.${SECRET_DOMAIN}"
-  #           paths:
-  #             - path: /
-  #               pathType: Prefix
-  #       tls:
-  #         - hosts:
-  #             - *host
+  values:
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+        annotations:
+          qbittorrent.io/enable: "false"
+        hosts:
+          - host: &host "qbittorrent.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
   #   persistence:
   #     data:
   #       enabled: true
