@@ -26,16 +26,18 @@ spec:
     keepHistory: false
   values:
     persistence:
-      media:
-        enabled: true
-        name: qbittorrent-media
-        accessModes:
-          - ReadWriteOnce
-        mountPath: /media
-      downloads:
-        enabled: true
-        type: emptyDir
-        mountPath: /downloads
+      shared:
+        enabled: false
+        type: pvc
+        mountPath: /shared
+        existingClaim:  qbittorrent-media
+        # -- Set the medium to "Memory" to mount a tmpfs (RAM-backed filesystem) instead
+        # of the storage medium that backs the node.
+        medium:  # Memory
+
+        # -- If the `SizeMemoryBackedVolumes` feature gate is enabled, you can
+        # specify a size for memory backed volumes.
+        sizeLimit:  # 1Gi
     ingress:
       main:
         enabled: true
