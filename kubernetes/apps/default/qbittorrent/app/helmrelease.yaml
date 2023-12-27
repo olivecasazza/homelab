@@ -27,6 +27,7 @@ spec:
 
   valuesFrom:
     - name: cluster-apps-qbittorrent-values
+      namespace: default
       kind: ConfigMap
       valuesKey: values.yaml
 
