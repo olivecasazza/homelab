@@ -25,16 +25,19 @@ spec:
   uninstall:
     keepHistory: false
 
-
+  volumes:
+    - name: data
+      persistentVolumeClaim:
+        claimName: qbittorrent-media
   values:
     persistence:
-      config:
-        enabled: true
       media:
         enabled: true
+        name: qbittorrent-media
         mountPath: /media
       downloads:
         enabled: true
+        type: emptyDir
         mountPath: /downloads
     ingress:
       main:
@@ -58,3 +61,15 @@ spec:
   #     requests:
   #       cpu: 100m
   #       memory: 128M
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: qbittorrent-media
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 8Gi
