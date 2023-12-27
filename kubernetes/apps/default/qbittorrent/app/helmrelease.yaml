@@ -24,11 +24,6 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-
-  volumes:
-    - name: data
-      persistentVolumeClaim:
-        claimName: qbittorrent-media
   values:
     persistence:
       media:
