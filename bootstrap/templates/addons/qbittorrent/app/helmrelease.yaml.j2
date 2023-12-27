@@ -1,4 +1,3 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -9,12 +8,13 @@ spec:
   chart:
     spec:
       chart: qbittorrent
-      version: 2.0.2
+      version: 13.5.2
       sourceRef:
         kind: HelmRepository
         name: qbittorrent
         namespace: flux-system
   maxHistory: 2
+
   install:
     remediation:
       retries: 3
@@ -25,6 +25,44 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    persistence:
+      media:
+        # -- Enables or disables the persistence item
+        enabled: true
+        # -- Sets the persistence type
+        # Valid options are pvc, emptyDir, hostPath, secret, configMap or custom
+        type: pvc
+        # -- If you want to reuse an existing claim, the name of the existing PVC can be passed here.
+        existingClaim: media-claim  # your-claim
+
+        # -- Used in conjunction with `existingClaim`. Specifies a sub-path inside the referenced volume instead of its root
+        subPath: media
+        # -- Where to mount the volume in the main container.
+        # Defaults to `/<name_of_the_volume>`,
+        # setting to '-' creates the volume but disables the volumeMount.
+
+        mountPath: /media # /config
+        # -- Specify if the volume should be mounted read-only.
+        readOnly: false
+        # -- Override the name suffix that is used for this volume.
+        # nameOverride:
+
+        # -- Storage Class for the config volume.
+        # If set to `-`, dynamic provisioning is disabled.
+        # If set to something else, the given storageClass is used.
+        # If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner.
+        # storageClass:  # "-"
+
+        # -- AccessMode for the persistent volume.
+        # Make sure to select an access mode that is supported by your storage provider!
+        # [[ref]](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes)
+        accessMode: ReadWriteOnce
+
+        # -- The amount of storage that is requested for the persistent volume.
+        size: 10Gi
+
+        # -- Set to true to retain the PVC upon `helm uninstall`
+        retain: false
     ingress:
       main:
         enabled: true
@@ -39,13 +77,3 @@ spec:
         tls:
           - hosts:
               - *host
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: qbittorrent-settings
-    persistence:
-      data:
-        enabled: true
-        type: emptyDir
-    resources:
-      requests:
-        cpu: 100m
-        memory: 128M
