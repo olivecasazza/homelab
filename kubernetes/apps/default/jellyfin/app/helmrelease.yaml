@@ -62,7 +62,7 @@ spec:
         enabled: true
         ingressClassName: internal
         annotations:
-          jellyfin.io/enable: true
+          jellyfin.io/enable: "true"
         hosts:
           - host: &host "jellyfin.${SECRET_DOMAIN}"
             paths:
