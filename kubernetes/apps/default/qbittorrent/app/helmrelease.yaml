@@ -7,9 +7,9 @@ metadata:
 spec:
   storageClassName: qbittorrent-media
   capacity:
-    storage: 10Gi
+    storage: 100Gi
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   hostPath:
     path: "/mnt/sdb/media"
 ---
@@ -20,10 +20,10 @@ metadata:
 spec:
   storageClassName: qbittorrent-media
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
-      storage: 5Gi
+      storage: 50Gi
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
@@ -41,6 +41,7 @@ spec:
         name: qbittorrent
         namespace: flux-system
   maxHistory: 2
+
   install:
     remediation:
       retries: 3
