@@ -56,9 +56,7 @@ spec:
         enabled: false
       data:
         enabled: true
-        # isPvc: true
         existingClaim: "media-nfs-pvc"
-        # storageClass: "nfs"
     ingress:
       main:
         enabled: true
