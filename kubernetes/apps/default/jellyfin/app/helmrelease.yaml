@@ -40,14 +40,14 @@ spec:
         kind: HelmRepository
         name: jellyfin
         namespace: flux-system
-  maxHistory: 2
+  maxHistory: 5
   install:
     remediation:
-      retries: 3
+      retries: 5
   upgrade:
     cleanupOnFail: true
     remediation:
-      retries: 3
+      retries: 5
   uninstall:
     keepHistory: false
   values:
