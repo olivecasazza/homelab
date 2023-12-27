@@ -1,32 +1,28 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: media-volume
+  name: media-nfs-pv
   labels:
-    type: local
+    type: media-nfs
 spec:
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - jensen
-  storageClassName: media
+  storageClassName: "nfs"
   capacity:
     storage: 7T
   accessModes:
     - ReadWriteMany
-  hostPath:
-    path: "/mnt/sdb"
+  nfs:
+    server: 192.168.0.13
+    path: "/mnt/sdb/"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: media-claim
+  name: media-nfs-pvc
 spec:
-  storageClassName: media
+  storageClassName: "nfs"
+  selector:
+    matchLabels:
+      type: "media-nfs"
   accessModes:
     - ReadWriteMany
   resources:
@@ -59,24 +55,12 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    affinity:
-      required:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: kubernetes.io/hostname
-            operator: In
-            values:
-            - jensen
-    nodeSelector:
-      kubernetes.io/hostname: jensen
     persistence:
-      config:
-        enabled: false
       data:
         enabled: true
         isPvc: true
-        existingClaim: "media-claim"
-        storageClass: "media"
+        existingClaim: "media-nfs-pvc"
+        storageClass: "nfs"
     ingress:
       main:
         enabled: true
