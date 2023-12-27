@@ -29,6 +29,7 @@ spec:
       media:
         enabled: true
         name: qbittorrent-media
+        accessModes: ReadWriteOnce
         mountPath: /media
       downloads:
         enabled: true
