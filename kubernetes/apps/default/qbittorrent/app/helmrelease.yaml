@@ -62,12 +62,6 @@ spec:
         # If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner.
         storageClass:  # "-"
 
-        # -- If you want to reuse an existing claim, the name of the existing PVC can be passed here.
-        existingClaim: qbittorrent-media
-
-        # -- Used in conjunction with `existingClaim`. Specifies a sub-path inside the referenced volume instead of its root
-        subPath:  / # some-subpath
-
         # -- AccessMode for the persistent volume.
         # Make sure to select an access mode that is supported by your storage provider!
         # [[ref]](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes)
