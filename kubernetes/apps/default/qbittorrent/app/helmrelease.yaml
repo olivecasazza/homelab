@@ -56,11 +56,10 @@ spec:
       media:
         # -- Enables or disables the persistence item
         enabled: true
-
         # -- Sets the persistence type
         # Valid options are pvc, emptyDir, hostPath, secret, configMap or custom
         type: pvc
-            # -- If you want to reuse an existing claim, the name of the existing PVC can be passed here.
+        # -- If you want to reuse an existing claim, the name of the existing PVC can be passed here.
         existingClaim: qbittorrent-media-claim  # your-claim
 
         # -- Used in conjunction with `existingClaim`. Specifies a sub-path inside the referenced volume instead of its root
@@ -73,13 +72,13 @@ spec:
         # -- Specify if the volume should be mounted read-only.
         readOnly: false
         # -- Override the name suffix that is used for this volume.
-        nameOverride:
+        # nameOverride:
 
         # -- Storage Class for the config volume.
         # If set to `-`, dynamic provisioning is disabled.
         # If set to something else, the given storageClass is used.
         # If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner.
-        storageClass:  # "-"
+        # storageClass:  # "-"
 
         # -- AccessMode for the persistent volume.
         # Make sure to select an access mode that is supported by your storage provider!
