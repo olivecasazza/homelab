@@ -51,6 +51,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    nodeSelector:
+      kubernetes.io/hostname: jensen
     persistence:
       data:
         enabled: true
