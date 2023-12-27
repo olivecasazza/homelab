@@ -60,11 +60,15 @@ spec:
         # -- Sets the persistence type
         # Valid options are pvc, emptyDir, hostPath, secret, configMap or custom
         type: pvc
+            # -- If you want to reuse an existing claim, the name of the existing PVC can be passed here.
+        existingClaim: qbittorrent-media  # your-claim
 
+        # -- Used in conjunction with `existingClaim`. Specifies a sub-path inside the referenced volume instead of its root
+        subPath: /
         # -- Where to mount the volume in the main container.
         # Defaults to `/<name_of_the_volume>`,
         # setting to '-' creates the volume but disables the volumeMount.
-        mountPath:  # /config
+        mountPath: /media # /config
         # -- Specify if the volume should be mounted read-only.
         readOnly: false
         # -- Override the name suffix that is used for this volume.
