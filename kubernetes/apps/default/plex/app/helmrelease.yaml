@@ -31,10 +31,10 @@ spec:
       config:
         enabled: false
       data:
-        enabled: true
-        existingClaim: media-nfs-pvc
-        subPath: media/Movies
-        mountPath: /movies
+        enabled: false
+        # existingClaim: media-nfs-pvc
+        # subPath: media/Movies
+        # mountPath: /movies
 
     ingress:
       enabled: true

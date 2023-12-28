@@ -1,16 +1,3 @@
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: media-volv-pvc
-  namespace: default
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: longhorn
-  resources:
-    requests:
-      storage: 50Gi
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -36,20 +23,21 @@ spec:
       retries: 5
   uninstall:
     keepHistory: false
+  dependsOn:
+  - name: cluster-apps-nginx-internal
+    namespace: networking
   values:
     persistence:
       defaultNodeSelector:
-        enable: true # disable by default
+        enable: true
         selector:
           nodeSelectorTerms:
             - matchExpressions:
               - key: kubernetes.io/hostname
                 operator: In
                 values:
-                - jensen
                 - rog
-    defaultSettings:
-      defaultDataPath: /mnt/sdb/
+                - jensen
     ingress:
       host: &host "longhorn.${SECRET_DOMAIN}"
       enabled: true
@@ -64,3 +52,4 @@ spec:
       tls:
         - hosts:
             - *host
+

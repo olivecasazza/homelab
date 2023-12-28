@@ -26,11 +26,11 @@ spec:
   values:
     persistence:
       media:
-        enabled: true
+        enabled: false
         # type: pvc
-        existingClaim: media-nfs-pvc
-        subPath: media
-        mountPath: /media
+        # existingClaim: media-nfs-pvc
+        # subPath: media
+        # mountPath: /media
     ingress:
       main:
         enabled: true
