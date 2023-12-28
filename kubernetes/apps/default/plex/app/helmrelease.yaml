@@ -4,7 +4,7 @@ metadata:
   name: plex
   namespace: default
 spec:
-  interval: 15s
+  interval: 30s
   chart:
     spec:
       chart: plex
@@ -31,7 +31,7 @@ spec:
         enabled: false
       data:
         enabled: true
-        existingClaim: "media-nfs-pvc"
+        existingClaim: media-nfs-pvc
     ingress:
       enabled: true
       ingressClassName: internal
