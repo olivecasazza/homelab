@@ -51,6 +51,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    nodeSelector:
+      kubernetes.io/hostname: rog
     persistence:
       config:
         enabled: false
