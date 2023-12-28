@@ -32,6 +32,9 @@ spec:
       data:
         enabled: true
         existingClaim: media-nfs-pvc
+        subPath: media/Movies
+        mountPath: /movies
+
     ingress:
       enabled: true
       ingressClassName: internal
