@@ -16,6 +16,14 @@
   when: jellyfin.enabled | default(false)
   ansible.builtin.include_tasks: jellyfin.yaml
 
+- name: Process addon plex
+  when: plex.enabled | default(false)
+  ansible.builtin.include_tasks: plex.yaml
+
+- name: Process addon longhorn
+  when: longhorn.enabled | default(false)
+  ansible.builtin.include_tasks: longhorn.yaml
+
 - name: Process addon grafana
   when: grafana.enabled | default(false)
   ansible.builtin.include_tasks: grafana.yaml

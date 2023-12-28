@@ -13,6 +13,9 @@ resources:
   {% if jellyfin.enabled | default(false) %}
   - ./jellyfin/ks.yaml
   {% endif %}
+  {% if longhorn.enabled | default(false) %}
+  - ./longhorn/ks.yaml
+  {% endif %}
   {% if discord_template_notifier.enabled | default(false) %}
   - ./discord-template-notifier/ks.yaml
   {% endif %}

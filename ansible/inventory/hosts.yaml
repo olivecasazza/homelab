@@ -5,9 +5,12 @@ kubernetes:
       hosts:
         rog:
           ansible_user: olive
-          ansible_host: 192.168.0.15
+          ansible_host: 192.168.0.16
     worker:
       hosts:
+        jensen:
+          ansible_user: olive
+          ansible_host: 192.168.0.13
         spectre:
           ansible_user: olive
           ansible_host: 192.168.0.27

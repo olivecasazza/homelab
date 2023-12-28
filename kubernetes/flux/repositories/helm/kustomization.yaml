@@ -17,7 +17,6 @@ resources:
   - ./kubernetes-dashboard.yaml
   - ./longhorn.yaml
   - ./metrics-server.yaml
-  - ./plex.yaml
   - ./prometheus-community.yaml
   - ./qbittorrent.yaml
   - ./stakater.yaml
