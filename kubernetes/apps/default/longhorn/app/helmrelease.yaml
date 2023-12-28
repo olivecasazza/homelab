@@ -23,9 +23,6 @@ spec:
       retries: 5
   uninstall:
     keepHistory: false
-  dependsOn:
-  - name: cluster-apps-nginx-internal
-    namespace: networking
   values:
     persistence:
       defaultNodeSelector:
