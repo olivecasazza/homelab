@@ -16,6 +16,7 @@ resources:
   - ./k8s-gateway.yaml
   - ./kubernetes-dashboard.yaml
   - ./metrics-server.yaml
+  - ./plex.yaml
   - ./prometheus-community.yaml
   - ./qbittorrent.yaml
   - ./stakater.yaml
