@@ -25,12 +25,13 @@ spec:
     keepHistory: false
   values:
     ingress:
+      host: &host "longhorn.${SECRET_DOMAIN}"
       enabled: true
       ingressClassName: internal
       annotations:
         longhorn.io/enable: "true"
       hosts:
-        - host: &host "longhorn.${SECRET_DOMAIN}"
+        - host: *host
           paths:
             - path: /
               pathType: Prefix
