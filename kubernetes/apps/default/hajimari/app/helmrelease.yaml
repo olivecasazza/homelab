@@ -22,9 +22,6 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-  dependsOn:
-    - name: cluster-apps-nginx-internal
-      namespace: networking
   uninstall:
     keepHistory: false
   values:

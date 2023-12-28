@@ -23,6 +23,7 @@ spec:
       retries: 5
   uninstall:
     keepHistory: false
+
   values:
     persistence:
       defaultNodeSelector:
