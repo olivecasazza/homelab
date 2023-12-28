@@ -4,7 +4,7 @@ metadata:
   name: qbittorrent
   namespace: default
 spec:
-  interval: 30m
+  interval: 30s
   chart:
     spec:
       chart: qbittorrent
@@ -14,9 +14,6 @@ spec:
         name: qbittorrent
         namespace: flux-system
   maxHistory: 2
-  dependsOn:
-    - name: cluster-apps-jellyfin
-      namespace: default
   install:
     remediation:
       retries: 3
@@ -30,7 +27,7 @@ spec:
     persistence:
       media:
         enabled: true
-        type: pvc
+        # type: pvc
         existingClaim: media-nfs-pvc
         subPath: media
         mountPath: /media
@@ -39,7 +36,7 @@ spec:
         enabled: true
         ingressClassName: internal
         annotations:
-          qbittorrent.io/enable: "false"
+          qbittorrent.io/enable: "true"
         hosts:
           - host: &host "qbittorrent.${SECRET_DOMAIN}"
             paths:

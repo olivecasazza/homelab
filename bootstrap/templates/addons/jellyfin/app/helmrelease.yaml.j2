@@ -2,27 +2,22 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: media-nfs-pv
-  labels:
-    type: media-nfs
 spec:
-  storageClassName: "nfs"
-  capacity:
-    storage: 7T
+  storageClassName: nfs
   accessModes:
     - ReadWriteMany
+  capacity:
+    storage: 7T
   nfs:
+    path: /mnt/sdb
     server: 192.168.0.13
-    path: "/mnt/sdb/"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: media-nfs-pvc
 spec:
-  storageClassName: "nfs"
-  selector:
-    matchLabels:
-      type: "media-nfs"
+  storageClassName: nfs
   accessModes:
     - ReadWriteMany
   resources:
@@ -35,7 +30,7 @@ metadata:
   name: jellyfin
   namespace: default
 spec:
-  interval: 30m
+  interval: 30s
   chart:
     spec:
       chart: jellyfin
@@ -44,14 +39,14 @@ spec:
         kind: HelmRepository
         name: jellyfin
         namespace: flux-system
-  maxHistory: 2
+  maxHistory: 5
   install:
     remediation:
-      retries: 3
+      retries: 5
   upgrade:
     cleanupOnFail: true
     remediation:
-      retries: 3
+      retries: 5
   uninstall:
     keepHistory: false
   values:
@@ -60,15 +55,13 @@ spec:
         enabled: false
       data:
         enabled: true
-        isPvc: true
         existingClaim: "media-nfs-pvc"
-        storageClass: "nfs"
     ingress:
       main:
         enabled: true
         ingressClassName: internal
         annotations:
-          jellyfin.io/enable: "false"
+          jellyfin.io/enable: "true"
         hosts:
           - host: &host "jellyfin.${SECRET_DOMAIN}"
             paths:
