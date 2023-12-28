@@ -36,12 +36,20 @@ spec:
       retries: 5
   uninstall:
     keepHistory: false
-
   values:
-    customVolumes:
-      - name: custom-media-pvc
-        persistentVolumeClaim:
-          claimName: longhorn-media-pvc
+    persistence:
+      defaultNodeSelector:
+        enable: true # disable by default
+        selector:
+          nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - jensen
+                - rog
+    defaultSettings:
+      defaultDataPath: /mnt/sdb/
     ingress:
       host: &host "longhorn.${SECRET_DOMAIN}"
       enabled: true
