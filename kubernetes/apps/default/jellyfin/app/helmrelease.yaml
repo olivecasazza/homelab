@@ -56,7 +56,9 @@ spec:
         enabled: false
       data:
         enabled: true
-        existingClaim: "media-nfs-pvc"
+        existingClaim: "longhorn-media-pvc"
+        subPath: media
+        mountPath: /media
     ingress:
       enabled: true
       ingressClassName: internal
