@@ -31,13 +31,14 @@ spec:
       defaultNodeSelector:
         enable: true
         selector:
-          nodeSelectorTerms:
-          - matchExpressions:
-            - key: kubernetes.io/hostname
-              operator: In
-              values:
-              - rog
-              - jensen
+          kubernetes.io/hostname: jensen
+          # nodeSelectorTerms:
+          # - matchExpressions:
+          #   - key: kubernetes.io/hostname
+          #     operator: In
+          #     values:
+          #     - rog
+          #     - jensen
     defaultSettings:
       defaultDataPath: /mnt/sdb
     ingress:
