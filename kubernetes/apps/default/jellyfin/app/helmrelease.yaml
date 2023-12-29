@@ -26,7 +26,7 @@ spec:
   values:
     persistence:
       config:
-        enabled: false
+        enabled: true
       data:
         enabled: true
         existingClaim: longhorn-media-pvc
