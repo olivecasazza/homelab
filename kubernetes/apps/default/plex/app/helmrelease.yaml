@@ -27,6 +27,8 @@ spec:
     - name: longhorn
       namespace: default
   values:
+    env:
+      PLEX_CLAIM: claim-K6nisxfV1soykGV3nToD
     persistence:
       config:
         enabled: false
