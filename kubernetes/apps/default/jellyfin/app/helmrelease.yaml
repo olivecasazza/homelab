@@ -55,8 +55,8 @@ spec:
       config:
         enabled: false
       data:
-        enabled: false
-        # existingClaim: "media-nfs-pvc"
+        enabled: true
+        existingClaim: "media-nfs-pvc"
     ingress:
       enabled: true
       ingressClassName: internal

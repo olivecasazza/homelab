@@ -23,19 +23,10 @@ spec:
       retries: 5
   uninstall:
     keepHistory: false
-
+  dependsOn:
+    - name: nginx-internal
+      namespace: networking
   values:
-    persistence:
-      defaultNodeSelector:
-        enable: true
-        selector:
-          nodeSelectorTerms:
-            - matchExpressions:
-              - key: kubernetes.io/hostname
-                operator: In
-                values:
-                - rog
-                - jensen
     ingress:
       host: &host "longhorn.${SECRET_DOMAIN}"
       enabled: true
