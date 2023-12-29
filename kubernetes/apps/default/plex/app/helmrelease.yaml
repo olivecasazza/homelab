@@ -36,10 +36,10 @@ spec:
         enabled: true
         existingClaim: longhorn-media-pvc
     ingress:
-      enabled: true
+      enabled: "true"
       ingressClassName: internal
       annotations:
-        plex.io/enable: true
+        "plex.io/enable": "true"
       hosts:
         - host: &host "plex.${SECRET_DOMAIN}"
           paths:
