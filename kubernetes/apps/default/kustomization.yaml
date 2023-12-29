@@ -5,6 +5,5 @@ resources:
   - ./namespace.yaml
   - ./hajimari/ks.yaml
   - ./qbittorrent/ks.yaml
-  - ./jellyfin/ks.yaml
   - ./plex/ks.yaml
   - ./longhorn/ks.yaml
