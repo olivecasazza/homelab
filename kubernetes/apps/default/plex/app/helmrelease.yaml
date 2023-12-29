@@ -35,13 +35,14 @@ spec:
       data:
         enabled: true
         existingClaim: longhorn-media-pvc
+
     ingress:
       enabled: true
       ingressClassName: internal
       annotations:
-        jellyfin.io/enable: "true"
+        plex.io/enable: "true"
       hosts:
-        - host: &host "jellyfin.${SECRET_DOMAIN}"
+        - host: &host "plex.${SECRET_DOMAIN}"
           paths:
             - path: /
               pathType: Prefix
