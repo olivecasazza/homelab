@@ -4,7 +4,7 @@ metadata:
   name: plex
   namespace: default
 spec:
-  interval: 30s
+  interval: 30m
   chart:
     spec:
       chart: plex
@@ -37,13 +37,12 @@ spec:
         existingClaim: longhorn-media-pvc
     ingress:
       main:
-        enabled: true
-        ingressClassName: external
+        enabled: "true"
+        ingressClassName: internal
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-          hajimari.io/icon: video-input-antenna
+          "plex.io/enable": "true"
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: &host "plex.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
