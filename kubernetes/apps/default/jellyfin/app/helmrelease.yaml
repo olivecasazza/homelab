@@ -29,8 +29,7 @@ spec:
         enabled: false
       data:
         enabled: true
-        existingClaim: "longhorn-media-pvc"
-        mountPath: /media
+        existingClaim: longhorn-media-pvc
     ingress:
       enabled: true
       ingressClassName: internal
