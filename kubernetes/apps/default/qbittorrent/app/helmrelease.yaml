@@ -31,8 +31,6 @@ spec:
       media:
         enabled: true
         existingClaim: longhorn-media-pvc
-        subPath: media
-        mountPath: /media
     ingress:
       main:
         enabled: true
