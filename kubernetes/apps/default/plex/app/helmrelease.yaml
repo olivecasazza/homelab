@@ -37,12 +37,13 @@ spec:
         existingClaim: longhorn-media-pvc
     ingress:
       main:
-        enabled: "true"
-        ingressClassName: internal
+        enabled: true
+        ingressClassName: external
         annotations:
-          "plex.io/enable": "true"
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          hajimari.io/icon: video-input-antenna
         hosts:
-          - host: &host "plex.${SECRET_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
