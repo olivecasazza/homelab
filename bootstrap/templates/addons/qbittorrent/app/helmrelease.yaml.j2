@@ -23,14 +23,14 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
+  dependsOn:
+    - name: longhorn
+      namespace: default
   values:
     persistence:
       media:
         enabled: true
-        # type: pvc
-        existingClaim: media-nfs-pvc
-        subPath: media
-        mountPath: /media
+        existingClaim: longhorn-media-pvc
     ingress:
       main:
         enabled: true
