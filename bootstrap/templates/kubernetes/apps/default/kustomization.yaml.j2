@@ -8,13 +8,6 @@ resources:
   - ./hajimari/ks.yaml
   {% endif %}
 
-  {% if qbittorrent.enabled | default(false) %}
-  - ./qbittorrent/ks.yaml
-  {% endif %}
-  {% if plex.enabled | default(false) %}
-  - ./plex/ks.yaml
-  {% endif %}
-
   {% if discord_template_notifier.enabled | default(false) %}
   - ./discord-template-notifier/ks.yaml
   {% endif %}
