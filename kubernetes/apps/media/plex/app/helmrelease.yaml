@@ -29,7 +29,7 @@ spec:
   values:
     hostNetwork: true
     env:
-      PLEX_CLAIM: claim-K6nisxfV1soykGV3nToD
+      PLEX_CLAIM: claim-4T_t6FEJhugfL4koyh7S
     persistence:
       config:
         enabled: false
