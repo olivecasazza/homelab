@@ -6,4 +6,5 @@ resources:
   - ./hajimari/ks.yaml
 
   - ./qbittorrent/ks.yaml
+  - ./plex/ks.yaml
 
