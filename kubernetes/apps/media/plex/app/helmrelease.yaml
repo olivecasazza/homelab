@@ -25,7 +25,7 @@ spec:
     keepHistory: false
   dependsOn:
     - name: longhorn
-      namespace: media
+      namespace: kube-system
   values:
     hostNetwork: true
     env:
