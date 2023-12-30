@@ -25,10 +25,10 @@ spec:
     keepHistory: false
   dependsOn:
     - name: longhorn
-      namespace: kube-system
+      namespace: media
   values:
     env:
-      PLEX_CLAIM: claim-TQmgAT4DyCKyd76LnBsz
+      PLEX_CLAIM: claim-K6nisxfV1soykGV3nToD
     persistence:
       config:
         enabled: false
