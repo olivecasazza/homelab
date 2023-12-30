@@ -39,6 +39,7 @@ spec:
       namespaceSelector:
         matchNames:
           - default
+          - media
           - monitoring
     ingress:
       main:
