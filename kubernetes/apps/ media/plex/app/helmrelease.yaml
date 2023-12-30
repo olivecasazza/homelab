@@ -28,7 +28,7 @@ spec:
       namespace: media
   values:
     env:
-      PLEX_CLAIM: claim-K6nisxfV1soykGV3nToD
+      PLEX_CLAIM: claim-e8kCqrK38PAmPrxhTnZh
     persistence:
       config:
         enabled: false
