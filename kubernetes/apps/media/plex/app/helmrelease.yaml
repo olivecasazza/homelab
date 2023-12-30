@@ -27,6 +27,7 @@ spec:
     - name: longhorn
       namespace: media
   values:
+    hostNetwork: true
     env:
       PLEX_CLAIM: claim-K6nisxfV1soykGV3nToD
     persistence:
@@ -36,17 +37,17 @@ spec:
         enabled: true
         existingClaim: longhorn-media-pvc
     ingress:
-      # main:
-      enabled: "true"
-      ingressClassName: internal
-      annotations:
-        "plex.io/enable": "true"
-      hosts:
-        - host: &host "plex.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - *host
+      main:
+        enabled: "true"
+        ingressClassName: internal
+        annotations:
+          "plex.io/enable": "true"
+        hosts:
+          - host: &host "plex.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
 
