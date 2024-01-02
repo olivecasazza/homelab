@@ -5,4 +5,5 @@ resources:
   - ./namespace.yaml
   - ./pvc.yaml
   - ./qbittorrent/ks.yaml
+  - ./vuetorrent/ks.yaml
   - ./plex/ks.yaml
