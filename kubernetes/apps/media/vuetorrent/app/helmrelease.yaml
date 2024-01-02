@@ -7,7 +7,7 @@ spec:
   interval: 30s
   chart:
     spec:
-      chart: vuetorrent
+      chart: qbittorrent
       version: 1.5.1
       sourceRef:
         kind: HelmRepository
