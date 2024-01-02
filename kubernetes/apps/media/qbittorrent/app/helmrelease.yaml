@@ -24,7 +24,7 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
-    - name: longhorn
+    - name: longhorn-manager
       namespace: kube-system
   values:
     persistence:
