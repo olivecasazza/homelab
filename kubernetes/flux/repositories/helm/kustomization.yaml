@@ -20,4 +20,5 @@ resources:
   - ./prometheus-community.yaml
   - ./qbittorrent.yaml
   - ./stakater.yaml
+  - ./vuetorrent.yaml
   - ./weave-gitops.yaml

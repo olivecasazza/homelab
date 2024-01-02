@@ -1,0 +1,49 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: vuetorrent
+  namespace: media
+spec:
+  interval: 30s
+  chart:
+    spec:
+      chart: gabe565/qbittorrent
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: vuetorrent
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: longhorn
+      namespace: media
+  values:
+    env:
+      DOCKER_MODS: ghcr.io/gabe565/linuxserver-mod-vuetorrent
+    persistence:
+      media:
+        enabled: true
+        existingClaim: longhorn-media-pvc
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+        annotations:
+          vuetorrent.io/enable: "true"
+        hosts:
+          - host: &host "vuetorrent.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
