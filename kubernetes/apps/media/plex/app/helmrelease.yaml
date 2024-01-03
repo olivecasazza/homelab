@@ -28,7 +28,7 @@ spec:
       namespace: kube-system
   values:
     env:
-      PLEX_CLAIM: claim-K6nisxfV1soykGV3nToD
+      PLEX_CLAIM: claim-EKzghKrUvkq6_BgDUWE4
     persistence:
       config:
         enabled: false
