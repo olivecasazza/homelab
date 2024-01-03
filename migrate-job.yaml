@@ -1,18 +1,8 @@
-#!/bin/bash
-# See https://justyn.io/til/migrate-kubernetes-pvc-to-another-pvc/ for details
-
-set -exu
-
-src=$1
-dst=$2
-
-echo "Creating job yaml"
-cat > migrate-job.yaml << EOF
 apiVersion: batch/v1
 kind: Job
 metadata:
   namespace: media
-  name: migrate-pv-$src
+  name: migrate-pv-longhorn-media-pvc
 spec:
   template:
     spec:
@@ -44,13 +34,8 @@ spec:
       volumes:
       - name: src
         persistentVolumeClaim:
-          claimName: kube-system/$src
+          claimName: kube-system/longhorn-media-pvc
       - name: dst
         persistentVolumeClaim:
-          claimName: $dst
+          claimName: media-pvc
   backoffLimit: 1
-EOF
-
-kubectl create -f migrate-job.yaml
-kubectl get jobs -o wide
-kubectl get pods | grep migrate
