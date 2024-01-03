@@ -23,9 +23,6 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: longhorn-manager
-      namespace: kube-system
   values:
     persistence:
       media:
