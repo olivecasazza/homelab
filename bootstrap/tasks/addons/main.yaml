@@ -12,10 +12,6 @@
   when: qbittorrent.enabled | default(false)
   ansible.builtin.include_tasks: qbittorrent.yaml
 
-- name: Process addon jellyfin
-  when: jellyfin.enabled | default(false)
-  ansible.builtin.include_tasks: jellyfin.yaml
-
 - name: Process addon plex
   when: plex.enabled | default(false)
   ansible.builtin.include_tasks: plex.yaml

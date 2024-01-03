@@ -25,9 +25,11 @@ spec:
     keepHistory: false
   dependsOn:
     - name: longhorn
-      namespace: media
+      namespace: kube-system
   values:
     persistence:
+      config:
+        enabled: true
       media:
         enabled: true
         existingClaim: longhorn-media-pvc

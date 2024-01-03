@@ -23,13 +23,15 @@ spec:
       retries: 5
   uninstall:
     keepHistory: false
+  dependsOn:
+    - name: longhorn
+      namespace: kube-system
   values:
-    hostNetwork: true
     env:
-      PLEX_CLAIM: claim-4T_t6FEJhugfL4koyh7S
+      PLEX_CLAIM: claim-K6nisxfV1soykGV3nToD
     persistence:
       config:
-        enabled: false
+        enabled: true
       data:
         enabled: true
         existingClaim: longhorn-media-pvc
