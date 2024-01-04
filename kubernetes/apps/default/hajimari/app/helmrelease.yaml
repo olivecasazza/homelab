@@ -38,6 +38,7 @@ spec:
       defaultEnable: true
       namespaceSelector:
         matchNames:
+          - media
           - default
           - monitoring
     ingress:
