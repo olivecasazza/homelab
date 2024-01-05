@@ -35,16 +35,17 @@ spec:
     nodeSelector:
       kubernetes.io/hostname: "rog"
 
-    # persistence:
-    #   config:
-    #     enabled: false
-    #     mountPath: /config
-    #   transcode:
-    #     enabled: false
-    #     mountPath: /transcode
-    #   data:
-    #     enabled: true
-    #     existingClaim: media-pvc
+
+    persistence:
+      config:
+        enabled: true
+        mountPath: /config
+      transcode:
+        enabled: true
+        mountPath: /transcode
+      data:
+        enabled: true
+        existingClaim: media-pvc
 
     ingress:
       main:
