@@ -52,12 +52,17 @@ spec:
         enabled: false
         mountPath: /downloads
         existingClaim: qbittorrent-downloads-pvc
+        retain: true
+        skipUninstall: true
       config:
         enabled: true
         existingClaim: qbittorrent-config-pvc
+        retain: true
+        skipUninstall: true
       media:
         enabled: true
         skipUninstall: true
+        retain: true
         existingClaim: media-pvc
     ingress:
       main:
