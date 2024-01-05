@@ -10,7 +10,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   resources:
     requests:
-      storage: 2T
+      storage: 7T
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
