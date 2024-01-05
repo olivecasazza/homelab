@@ -37,8 +37,9 @@ spec:
         retain: true
         skipUninstall: true
       transcode:
-        enabled: false
-        mountPath: /transcode
+        enabled: true
+        mountPath: /config
+        existingClaim: plex-transcode-pvc
         retain: true
         skipUninstall: true
       data:
