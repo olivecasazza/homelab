@@ -50,7 +50,7 @@ spec:
     persistence:
       downloads:
         enabled: false
-        existingClaim: qbittorrent-downloads-pvc
+        existingClaim: claim-NLBtcvPvYejcCUVf4V4z
         retain: true
       config:
         enabled: true
