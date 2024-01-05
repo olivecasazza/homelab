@@ -28,11 +28,16 @@ spec:
       namespace: kube-system
   values:
     persistence:
-      config:
-        enabled: false
-      media:
+      downloads:
         enabled: true
-        existingClaim: media-pvc
+        skipuninstall: false
+    additionalVolumes:
+      - name: downloads
+        persistentVolumeClaim:
+          claimName: media-pvc
+    additionalVolumeMounts:
+      - name: downloads
+        mountPath: /downloads
     ingress:
       main:
         enabled: true
