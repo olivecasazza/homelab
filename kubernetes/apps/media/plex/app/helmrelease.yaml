@@ -27,14 +27,20 @@ spec:
     - name: longhorn
       namespace: kube-system
   values:
+    config:
     env:
       PLEX_CLAIM: claim--xPeaBsx4FDxar43otF1
     persistence:
       config:
         enabled: false
+        mountPath: /config
+      transcode:
+        enabled: false
+        mountPath: /transcode
       data:
         enabled: true
         existingClaim: media-pvc
+
     ingress:
       main:
         enabled: "true"
