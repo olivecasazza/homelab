@@ -15,7 +15,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: plex-media-config
+  name: plex-config-pvc
   namespace: media
 spec:
   accessModes:
@@ -24,4 +24,4 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   resources:
     requests:
-      storage: "1Gi"
+      storage: "10Gi"
