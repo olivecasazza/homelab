@@ -27,27 +27,144 @@ spec:
     - name: longhorn
       namespace: kube-system
   values:
-    extraEnv:
-      PLEX_CLAIM: "claim-SyaHPTiuJxxPt1tEttHh"
-      HOSTNAME: "plex.casazza.info"
-      TZ: "Etc/UTC"
-      PLEX_UPDATE_CHANNEL: "5"
-    nodeSelector:
-      kubernetes.io/hostname: "rog"
+    global:
+      # -- Configure the plex image that will be used for the PMS and Worker components
+      # @default -- See below
+      plexImage:
+        # -- The image that will be used
+        repository: linuxserver/plex
 
-    ingress:
-      # Specify if an ingress resource for the pms server should be created or not
+        # -- The image tag to use
+        tag: latest
+
+        # -- Defines when the image should be pulled. Options are Always (default), IfNotPresent, and Never
+        imagePullPolicy: Always
+
+      # -- The CluterPlex version of docker mod images to pull
+      # @default -- The appVersion for this chart
+      clusterplexVersion:
+
+      # -- The timezone configured for each pod
+      timezone: America/Chicago
+
+      # -- The process group ID that the LinuxServer Plex container will run Plex/Worker as.
+      PGID: 1000
+
+      # -- The process user ID that the LinuxServer Plex container will run Plex/Worker as.
+      PUID: 1000
+
+      sharedStorage:
+        # -- Configure the volume that will be mounted to the PMS and worker pods for a shared location for transcoding files.
+        # @default -- See below
+        transcode:
+          # -- Enable or disable the transcode PVC. This should only be disabled if you are not using the workers.
+          enabled: true
+
+          # -- Storage class for the transcode volume.
+          # If set to `-`, dynamic provisioning is disabled.
+          # If set to something else, the given storageClass is used.
+          # If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner.
+          # NOTE: This class must support ReadWriteMany otherwise you will encounter errors.
+          storageClass: # "-"
+
+          # -- If you want to reuse an existing claim, the name of the existing PVC can be passed here.
+          existingClaim: # your-claim
+
+          # -- Used in conjunction with `existingClaim`. Specifies a sub-path inside the referenced volume instead of its root
+          subPath: # some-subpath
+
+          # -- The size of the transcode volume.
+          size: 10Gi
+
+          # -- Set to true to retain the PVC upon `helm uninstall`
+          retain: true
+
+        # -- Configure the media volume that will contain all of your media. If you need more volumes you need to add them under
+        # the pms and worker sections manually. Those volumes must already be present in the cluster.
+        # @default -- See below
+        media:
+          # -- Enables or disables the volume
+          enabled: true
+
+          # -- Storage Class for the config volume.
+          # If set to `-`, dynamic provisioning is disabled.
+          # If set to something else, the given storageClass is used.
+          # If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner.
+          # NOTE: This class must support ReadWriteMany otherwise you will encounter errors.
+          storageClass: # "-"
+
+          # -- If you want to reuse an existing claim, the name of the existing PVC can be passed here.
+          existingClaim: # your-claim
+
+          # -- Used in conjunction with `existingClaim`. Specifies a sub-path inside the referenced volume instead of its root
+          subPath: # some-subpath
+
+          # -- The amount of storage that is requested for the persistent volume.
+          size: 100Gi
+
+          # -- Set to true to retain the PVC upon `helm uninstall`
+          retain: true
+
+        # -- Use this section to add additional media mounts if necessary. You can copy the contents of the above media
+        additionalMediaVolumes: {}
+
+    # -- Configure the Plex Media Server component
+    # @default -- See below
+    pms:
+      # -- Enable or disable the Plex Media Server component
       enabled: true
 
-      # The ingress class that should be used
-      ingressClassName: &host "plex.${SECRET_DOMAIN}"
 
-      # The url to use for the ingress reverse proxy to point at this pms instance
-      url: *host
+      # -- Supply the configuration items used to configure the PMS component
+      # @default -- See below
+      config:
+        # -- Set this to 1 if you want only info logging from the transcoder or 0 if you want debugging logs
+        transcoderVerbose: 0
 
-      # Custom annotations to put on the ingress resource
-      # annotations: {}
-      main:
+        # -- Set the transcode operating mode. Valid options are local (No workers), remote (only remote workers), both (default, remote first then local if remote fails).
+        # If you disable the worker then this will be set to local automatically as that is the only valid option for that confguration.
+        transcodeOperatingMode: both
+
+        # -- Set the Plex claim token obtained from https://plex.tv/claim
+        plexClaimToken: claim-PLxYGXYekACqpKGeJ9yr
+
+        # -- Set the version of Plex to use. Valid options are docker, latest, public, or a specific version.
+        # [[ref](https://github.com/linuxserver/docker-plex#application-setup)]
+        version: docker
+
+        # -- The port that Plex will listen on
+        port: 32400
+
+        # -- Enable or disable the local relay function. In most cases this should be left to the default (true).
+        # If you disable this, you must add the pod IP address of each worker or the pod network CIDR to Plex under the
+        # `List of IP addresses and networks that are allowed without auth` option in Plex's network configuration.
+        localRelayEnabled: true
+
+        # -- The port that the relay service will listen on
+        relayPort: 32499
+
+        # -- The IP address that plex is using. This is only utilized if you disable the localRelayEnabled option above.
+        pmsIP: ""
+
+      # -- Configure the kubernetes service associated with the the PMS component
+      # @default -- See below
+      serviceConfig:
+        # Configure the type of service
+        type: ClusterIP
+
+        # -- Specify the externalTrafficPolicy for the service. Options: Cluster, Local
+        # [[ref](https://kubernetes.io/docs/tutorials/services/source-ip/)]
+        externalTrafficPolicy:
+
+        # -- Provide additional annotations which may be required.
+        annotations: {}
+
+        # -- Provide additional labels which may be required.
+        labels: {}
+
+      # -- Configure the ingress for plex here.
+      # @default -- See below
+      ingressConfig:
         enabled: "true"
         ingressClassName: internal
         annotations:
@@ -60,19 +177,109 @@ spec:
         tls:
           - hosts:
               - *host
-    persistence:
-      config:
+
+      # -- Configure the volume that stores all the Plex configuration and metadata
+      # @default -- See below
+      configVolume:
+        # -- Enables or disables the volume
         enabled: true
-        mountPath: /config
-        existingClaim: plex-media-config
-      transcode:
+        # -- If you want to reuse an existing claim, the name of the existing PVC can be passed here.
+        existingClaim: plex-media-pvc
+        # -- Set to true to retain the PVC upon `helm uninstall`
+        retain: true
+
+
+    # -- Configure the orchestrator component
+    # @default -- See below
+    orchestrator:
+        # -- Configure the type of service
+        type: ClusterIP
+
+        # -- Specify the externalTrafficPolicy for the service. Options: Cluster, Local
+        # [[ref](https://kubernetes.io/docs/tutorials/services/source-ip/)]
+        externalTrafficPolicy:
+
+        # -- Provide additional annotations which may be required.
+        annotations: {}
+
+        # -- Provide additional labels which may be required.
+        labels: {}
+
+      # -- Configure a ServiceMonitor for use with Prometheus monitoring
+      # @default -- See below
+      prometheusServiceMonitor:
+        # -- Enable the ServiceMonitor creation
         enabled: true
-        mountPath: /transcode
-      data:
-        enabled: true
-        existingClaim: media-pvc
+
+        # -- Provide additional additions which may be required.
+        annotations: {}
+
+        # -- Provide additional labels which may be required.
+        labels: {}
+
+        # -- Provide a custom selector if desired. Note that this will take precedent over the default
+        # method of using the orchestrators namespace. This usually should not be required.
+        customSelector: {}
+
+        # -- Configure how often Prometheus should scrape this metrics endpoint in seconds
+        scrapeInterval: 30s
+
+        # -- Configure how long Prometheus should wait for the endpoint to reply before
+        # considering the request to have timed out.
+        scrapeTimeout: 10s
+
+      # -- Configures if the Grafana dashboard for the orchestrator component is deployed to the cluster or not.
+      # If enabled, this creates a ConfigMap containing the dashboard JSON so that your Gradana instance can detect it.
+      # This requires your grafana instance to have the grafana.sidecar.dashboards.enabled to be true and the searchNamespace
+      # to be set to ALL otherwise this will not be discovered.
+      enableGrafanaDashboard: true
+
+
+
+    # -- Configure the worker component
+    # @default -- See below
+    worker:
+      # -- Enable or disable the Worker component
+      enabled: true
+
+      # -- Configure the affinity rules for the worker pods. This helps prevent multiple worker pods from
+      # being scheduled on the same node as another worker pod or as the main plex media server.
+      affinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  name: rog
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  name: spectre
+              topologyKey: kubernetes.io/hostname
+            weight: 50
+      # env:
+      #   PLEX_CLAIM: "claim-SyaHPTiuJxxPt1tEttHh"
+      #   HOSTNAME: "plex.casazza.info"
+      #   TZ: "Etc/UTC"
+      #   PLEX_UPDATE_CHANNEL: "5"
+      # nodeSelector:
+      #   kubernetes.io/hostname: "rog"
+
+      # persistence:
+      #   config:
+      #     enabled: true
+      #     mountPath: /config
+      #     existingClaim: plex-media-config
+      #   transcode:
+      #     enabled: true
+      #     mountPath: /transcode
+      #   data:
+      #     enabled: true
+      #     existingClaim: media-pvc
 
     # ingress:
+    #   main:
     #     enabled: "true"
     #     ingressClassName: internal
     #     annotations:
@@ -85,17 +292,4 @@ spec:
     #     tls:
     #       - hosts:
     #           - *host
-      # main:
-      #   enabled: "true"
-      #   ingressClassName: internal
-      #   annotations:
-      #     "plex.io/enable": "true"
-      #   hosts:
-      #     - host: &host "plex.${SECRET_DOMAIN}"
-      #       paths:
-      #         - path: /
-      #           pathType: Prefix
-      #   tls:
-      #     - hosts:
-      #         - *host
 
