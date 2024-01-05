@@ -30,6 +30,7 @@ spec:
     persistence:
       downloads:
         enabled: true
+        existingClaim: media-pvc
         skipuninstall: false
     additionalVolumes:
       - name: downloads
