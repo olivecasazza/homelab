@@ -35,11 +35,11 @@ spec:
     nodeSelector:
       kubernetes.io/hostname: "rog"
 
-
     persistence:
       config:
         enabled: true
         mountPath: /config
+        existingClaim: plex-media-config
       transcode:
         enabled: true
         mountPath: /transcode
