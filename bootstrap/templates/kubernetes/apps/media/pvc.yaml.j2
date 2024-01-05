@@ -9,4 +9,17 @@ spec:
   storageClassName: longhorn
   resources:
     requests:
-      storage: 500Gi
+      storage: 7T
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: plex-config-pvc
+  namespace: media
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: "10Gi"

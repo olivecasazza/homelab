@@ -48,8 +48,13 @@ spec:
           port: 9022
           logLevel: INFO
     persistence:
-      config:
+      downloads:
         enabled: false
+        mountPath: /downloads
+        existingClaim: qbittorrent-downloads-pvc
+      config:
+        enabled: true
+        existingClaim: qbittorrent-config-pvc
       media:
         enabled: true
         skipUninstall: true

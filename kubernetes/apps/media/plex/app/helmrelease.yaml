@@ -34,12 +34,18 @@ spec:
         enabled: true
         mountPath: /config
         existingClaim: plex-config-pvc
+        retain: true
+        skipUninstall: true
       transcode:
         enabled: false
         mountPath: /transcode
+        retain: true
+        skipUninstall: true
       data:
         enabled: true
         existingClaim: media-pvc
+        retain: true
+        skipUninstall: true
     ingress:
       main:
         enabled: "true"
