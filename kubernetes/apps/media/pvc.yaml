@@ -9,7 +9,7 @@ spec:
   storageClassName: longhorn
   resources:
     requests:
-      storage: 7T
+      storage: 4T
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
