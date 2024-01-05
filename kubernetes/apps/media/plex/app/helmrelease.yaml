@@ -32,12 +32,10 @@ spec:
     persistence:
       config:
         enabled: true
-        mountPath: /config
         existingClaim: plex-config-pvc
         retain: true
       transcode:
         enabled: true
-        mountPath: /config
         existingClaim: plex-transcode-pvc
         retain: true
       data:
