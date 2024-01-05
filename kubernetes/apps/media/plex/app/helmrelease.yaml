@@ -35,6 +35,19 @@ spec:
     nodeSelector:
       kubernetes.io/hostname: "rog"
 
+    ingress:
+      # Specify if an ingress resource for the pms server should be created or not
+      enabled: true
+
+      # The ingress class that should be used
+      ingressClassName: &host "plex.${SECRET_DOMAIN}"
+
+      # The url to use for the ingress reverse proxy to point at this pms instance
+      url: *host
+
+      # Custom annotations to put on the ingress resource
+      # annotations: {}
+
     persistence:
       config:
         enabled: true
@@ -47,30 +60,30 @@ spec:
         enabled: true
         existingClaim: media-pvc
 
-    ingress:
-      enabled: "true"
-      ingressClassName: internal
-      annotations:
-        "plex.io/enable": "true"
-      hosts:
-        - host: &host "plex.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - *host
-      main:
-        enabled: "true"
-        ingressClassName: internal
-        annotations:
-          "plex.io/enable": "true"
-        hosts:
-          - host: &host "plex.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - hosts:
-              - *host
+    # ingress:
+    #     enabled: "true"
+    #     ingressClassName: internal
+    #     annotations:
+    #       "plex.io/enable": "true"
+    #     hosts:
+    #       - host: &host "plex.${SECRET_DOMAIN}"
+    #         paths:
+    #           - path: /
+    #             pathType: Prefix
+    #     tls:
+    #       - hosts:
+    #           - *host
+    #   main:
+    #     enabled: "true"
+    #     ingressClassName: internal
+    #     annotations:
+    #       "plex.io/enable": "true"
+    #     hosts:
+    #       - host: &host "plex.${SECRET_DOMAIN}"
+    #         paths:
+    #           - path: /
+    #             pathType: Prefix
+    #     tls:
+    #       - hosts:
+    #           - *host
 
